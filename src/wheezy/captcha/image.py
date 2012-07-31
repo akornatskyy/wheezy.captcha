@@ -5,9 +5,9 @@ import random
 import Image
 import ImageFilter
 
-from ImageFont import truetype
 from ImageColor import getrgb
 from ImageDraw import Draw
+from ImageFont import truetype
 
 
 def captcha(drawings, width=200, height=75):
@@ -18,6 +18,7 @@ def captcha(drawings, width=200, height=75):
             assert image
         return image
     return render
+
 
 #region: captcha drawers
 
@@ -80,6 +81,7 @@ def text(fonts, drawings=None, color='#5C87B2'):
         return image
     return drawer
 
+
 #region: text drawers
 
 def warp(dx_factor=0.27, dy_factor=0.21):
@@ -129,7 +131,7 @@ if __name__ == '__main__':
         background(),
         text(fonts=[
             'fonts/CourierNew-Bold.ttf',
-            'fonts/Tahoma.ttf'],
+            'fonts/LiberationMono-Bold.ttf'],
             drawings=[
                 warp(),
                 rotate(),
