@@ -38,7 +38,7 @@ env:
 		echo 'done.'; \
 	fi
 	$(EASY_INSTALL) -i $(PYPI) -O2 coverage nose pytest \
-		pytest-pep8 pytest-cov
+		pytest-pep8 pytest-cov libfreetype6-dev libjpeg8-dev
 	# The following packages available for python < 3.0
 	#if [ "$$(echo $(VERSION) | sed 's/\.//')" -lt 30 ]; then \
 	#fi;
@@ -84,4 +84,7 @@ doc:
 	$(SPHINX) -a -b html doc/ doc/_build/
 
 test-demos:
-	$(PYTEST) -q -x --pep8 demos/
+	$(PYTEST) -q -x
+
+run-demo:
+	$(PYTHON) demos/sample.py
