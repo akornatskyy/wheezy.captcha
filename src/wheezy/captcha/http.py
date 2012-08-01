@@ -17,7 +17,7 @@ from wheezy.http import bad_request
 from wheezy.http import response_cache
 
 
-class FileAdapter():
+class FileAdapter(object):
 
     def __init__(self, response):
         self.response = response

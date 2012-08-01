@@ -9,6 +9,15 @@ except:
 
 README = open(os.path.join(os.path.dirname(__file__), 'README')).read()
 
+install_requires = [
+    'PIL>=1.1.7'
+]
+
+try:
+    import uuid
+except:
+    install_requires.append('uuid')
+
 setup(
     name='wheezy.captcha',
     version='0.1',
@@ -33,8 +42,8 @@ setup(
         'Programming Language :: Python :: 2.5',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
+        #'Programming Language :: Python :: 3',
+        #'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Internet :: WWW/HTTP',
@@ -50,17 +59,17 @@ setup(
     namespace_packages=['wheezy'],
 
     zip_safe=False,
-    install_requires=[
-        'PIL>=1.1.7'
-    ],
+    install_requires=install_requires,
     extras_require={
         'dev': [
             'coverage',
             'nose',
             'pytest',
             'pytest-pep8',
-            'pytest-cov'
-        ]
+            'pytest-cov',
+            'wheezy.caching',
+            'wheezy.http'
+        ],
     },
 
     platforms='any'
