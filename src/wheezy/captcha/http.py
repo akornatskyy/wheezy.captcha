@@ -71,7 +71,6 @@ class CaptchaContext(object):
             context = self.cache_factory()
             try:
                 cache = context.__enter__()
-                print(challenge_code)
                 if not cache.set(self.prefix + challenge_code,
                                  (int(time()), turing_number),
                                  self.timeout, self.namespace):
@@ -101,7 +100,6 @@ class CaptchaContext(object):
             return False
         form = last_item_adapter(request.form)
         challenge_code = form[self.challenge_key]
-        print(challenge_code)
         if len(challenge_code) != 22:
             self.append_error(errors, self._(
                 'The challenge code is invalid.'))
@@ -116,9 +114,7 @@ class CaptchaContext(object):
         context = self.cache_factory()
         try:
             cache = context.__enter__()
-            print(key)
             data = cache.get(key, self.namespace)
-            print(data)
             if not data:
                 self.append_error(errors, self._(
                     'The code you typed has expired after %d seconds.')
