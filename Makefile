@@ -69,7 +69,7 @@ upload:
 
 test:
 	$(PYTEST) -q -x --pep8 --doctest-modules \
-		src/wheezy/captcha
+		src/wheezy/captcha demos/
 
 doctest-cover:
 	$(NOSE) --stop --with-doctest --detailed-errors \
