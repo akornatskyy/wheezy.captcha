@@ -57,27 +57,40 @@ def noise(number=50, color='#EEEECC', level=2):
     return drawer
 
 
-def text(fonts, drawings=None, color='#5C87B2'):
-    font_fators = (0.7, 0.8, 0.9)
+def text(fonts, font_sizes=None, drawings=None, color='#5C87B2',
+         squeeze_factor=0.8):
+    fonts = tuple([truetype(name, size)
+                   for name in fonts
+                   for size in font_sizes or (65, 70, 75)])
     if not callable(color):
         c = getrgb(color)
         color = lambda: c
 
     def drawer(image, text):
         draw = Draw(image)
-        width, height = image.size
-        width = width / len(text)
-        for i, c in enumerate(text):
-            font_size = int(height * random.choice(font_fators))
-            font = truetype(random.choice(fonts), font_size)
+        char_images = []
+        for c in text:
+            font = random.choice(fonts)
             c_width, c_height = draw.textsize(c, font=font)
             char_image = Image.new('RGB', (c_width, c_height), (0, 0, 0))
             char_draw = Draw(char_image)
             char_draw.text((0, 0), c, font=font, fill=color())
+            char_image = char_image.crop(char_image.getbbox())
             for drawing in drawings:
                 char_image = drawing(char_image)
+            char_images.append(char_image)
+        width, height = image.size
+        offset = int((width - sum(int(i.size[0] * squeeze_factor)
+                                  for i in char_images[:-1])
+                      - char_images[-1].size[0]) / 2)
+        for char_image in char_images:
+            c_width, c_height = char_image.size
             mask = char_image.convert('L').point(lambda i: i * 1.97)
-            image.paste(char_image, (i * width, 0), mask)
+            image.paste(char_image, (
+                offset,
+                (height - c_height) / 2
+                ), mask)
+            offset += int(c_width * squeeze_factor)
         return image
     return drawer
 
@@ -107,7 +120,7 @@ def warp(dx_factor=0.27, dy_factor=0.21):
     return drawer
 
 
-def offset(dx_factor=0.1, dy_factor=0.1):
+def offset(dx_factor=0.1, dy_factor=0.2):
     def drawer(image):
         width, height = image.size
         dx = int(random.random() * width * dx_factor)
