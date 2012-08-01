@@ -86,10 +86,9 @@ def text(fonts, font_sizes=None, drawings=None, color='#5C87B2',
         for char_image in char_images:
             c_width, c_height = char_image.size
             mask = char_image.convert('L').point(lambda i: i * 1.97)
-            image.paste(char_image, (
-                offset,
-                (height - c_height) / 2
-                ), mask)
+            image.paste(char_image,
+                        (offset, (height - c_height) / 2),
+                        mask)
             offset += int(c_width * squeeze_factor)
         return image
     return drawer
