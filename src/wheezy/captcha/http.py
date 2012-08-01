@@ -4,7 +4,17 @@
 
 import random
 
+from datetime import timedelta
+from time import time
+from uuid import uuid4
+
+from wheezy.core.collections import last_item_adapter
+from wheezy.core.uuid import shrink_uuid
+from wheezy.http import CacheProfile
 from wheezy.http import HTTPResponse
+from wheezy.http import accept_method
+from wheezy.http import bad_request
+from wheezy.http import response_cache
 
 
 class FileAdapter():
@@ -16,12 +26,118 @@ class FileAdapter():
         self.response.write_bytes(b)
 
 
-def captcha_factory(image, chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',
-                    max_chars=4):
-    def handler(request):
-        turing_number = random.sample(chars, max_chars)
-        response = HTTPResponse('image/jpg')
-        image(turing_number).save(
-            FileAdapter(response), 'JPEG', quality=65)
-        return response
-    return handler
+class CaptchaContext(object):
+
+    def __init__(self, image,
+                 cache_factory, prefix='captcha:', namespace=None,
+                 timeout=5 * 60, profile=None,
+                 chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',
+                 max_chars=4, wait_timeout=2,
+                 challenge_key='c', turing_key='turing_number',
+                 gettext=None):
+        self.image = image
+        self.cache_factory = cache_factory
+        self.prefix = prefix
+        self.namespace = namespace
+        self.timeout = timeout
+        self.chars = chars
+        self.wait_timeout = wait_timeout
+        self.max_chars = max_chars
+        self.challenge_key = challenge_key
+        self.turing_key = turing_key
+        if profile:
+            self.profile = profile
+        else:
+            self.profile = CacheProfile(
+                'server',
+                vary_query=[challenge_key],
+                duration=timedelta(seconds=wait_timeout),
+                no_store=True)
+        if gettext:
+            self._ = gettext
+        else:
+            self._ = lambda s: s
+
+    @property
+    def render(self):
+        @accept_method('GET')
+        @response_cache(self.profile)
+        def handler(request):
+            if self.challenge_key not in request.query:
+                return bad_request()
+            challenge_code = last_item_adapter(
+                request.query)[self.challenge_key]
+            turing_number = ''.join(random.sample(self.chars, self.max_chars))
+            context = self.cache_factory()
+            try:
+                cache = context.__enter__()
+                print(challenge_code)
+                if not cache.set(self.prefix + challenge_code,
+                                 (int(time()), turing_number),
+                                 self.timeout, self.namespace):
+                    return bad_request()
+            finally:
+                context.__exit__(None, None, None)
+            response = HTTPResponse('image/jpg')
+            self.image(turing_number).save(
+                FileAdapter(response), 'JPEG', quality=65)
+            return response
+        return handler
+
+    def get_challenge_code(self, request):
+        if self.challenge_key not in request.query:
+            return shrink_uuid(uuid4())
+        else:
+            return request.query[self.challenge_key][0]
+
+    def validate(self, request, errors):
+        if self.challenge_key not in request.form:
+            self.append_error(errors, self._(
+                'The challenge code is not available.'))
+            return False
+        if self.turing_key not in request.form:
+            self.append_error(errors, self._(
+                'The turing number is not available.'))
+            return False
+        form = last_item_adapter(request.form)
+        challenge_code = form[self.challenge_key]
+        print(challenge_code)
+        if len(challenge_code) != 22:
+            self.append_error(errors, self._(
+                'The challenge code is invalid.'))
+            return False
+        entered_turing_number = form[self.turing_key]
+        if len(entered_turing_number) != self.max_chars:
+            self.append_error(errors, self._(
+                'The turing number is invalid.'))
+            return False
+
+        key = self.prefix + challenge_code
+        context = self.cache_factory()
+        try:
+            cache = context.__enter__()
+            print(key)
+            data = cache.get(key, self.namespace)
+            print(data)
+            if not data:
+                self.append_error(errors, self._(
+                    'The code you typed has expired after %d seconds.')
+                    % self.timeout)
+                return False
+            cache.delete(key, 0, self.namespace)
+        finally:
+            context.__exit__(None, None, None)
+        issued, turing_number = data
+        if issued + self.wait_timeout > int(time()):
+            self.append_error(errors, self._(
+                'The code was typed too quickly. Wait at least %d seconds.')
+                % self.wait_timeout)
+            return False
+        if turing_number != entered_turing_number.upper():
+            self.append_error(
+                errors, self._('The code you typed has no match.'))
+            return False
+        return True
+
+    def append_error(self, errors, message):
+        errors.setdefault(self.turing_key, []).append(message)

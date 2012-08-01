@@ -86,5 +86,10 @@ doc:
 test-demos:
 	$(PYTEST) -q -x
 
-run-demo:
-	$(PYTHON) demos/sample.py
+run:
+	$(PYTHON) demos/app.py
+
+uwsgi:
+	env/bin/uwsgi --http-socket 0.0.0.0:8080  --disable-logging \
+		--virtualenv env --master --optimize 2 \
+		--wsgi app:main --pythonpath demos

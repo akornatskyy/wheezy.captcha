@@ -2,13 +2,16 @@
 """
 """
 
+from wheezy.caching import MemoryCache
+
 from wheezy.http import HTTPResponse
 from wheezy.http import WSGIApplication
 from wheezy.http import accept_method
 from wheezy.http import bootstrap_http_defaults
 from wheezy.http import not_found
+from wheezy.http.middleware import http_cache_middleware_factory
 
-from wheezy.captcha.http import captcha_factory
+from wheezy.captcha.http import CaptchaContext
 
 from wheezy.captcha.image import captcha
 
@@ -22,6 +25,9 @@ from wheezy.captcha.image import rotate
 from wheezy.captcha.image import warp
 
 
+cache = MemoryCache()
+cache_factory = lambda: cache
+
 captcha_image = captcha(drawings=[
     background(),
     text(fonts=[
@@ -30,17 +36,19 @@ captcha_image = captcha(drawings=[
         drawings=[
             warp(),
             rotate(),
-            offset()]),
+            offset()
+        ]),
     noise(),
     smooth()
 ])
 
 
-captcha_handler = captcha_factory(captcha_image)
+captcha = CaptchaContext(captcha_image, cache_factory)
 
 
 @accept_method('GET')
 def welcome(request):
+    challenge_code = captcha.get_challenge_code(request)
     response = HTTPResponse()
     response.write("""
 <html><body><form action="/verify" method="post">
@@ -48,23 +56,31 @@ def welcome(request):
 <p>Please enter the text from image:</p>
 <p>
     <label for="turing_number">
-        <img id="captcha" src="/captcha.jpg"
+        <img id="captcha" src="/captcha.jpg?c=%s"
             style="display:block; width:200; height:75"
-            onclick="this.src='/captcha.jpg?r=' + Math.floor(Math.random()*100+1)"/>
+            onclick="this.src='/captcha.jpg?c=%s&r=' + \
+                   Math.floor(Math.random()*100+1)"/>
+        <input type="hidden" name="c" value="%s" />
     </label>
     <input id="turing_number" name="turing_number" type="text"
-        maxlength="4" style="width:200" />
+        maxlength="4" style="width:200;text-transform: uppercase;"
+        autocomplete="off" />
 </p>
+%s
 <p><input type="submit" value="Verify"></p>
-</form>
-    """)
+</form></body></html>
+    """ % (challenge_code, challenge_code, challenge_code, challenge_code))
     return response
 
 
 @accept_method('POST')
 def verify(request):
     response = HTTPResponse()
-    response.write("Not Implemented")
+    errors = {}
+    if not captcha.validate(request, errors):
+        response.write(errors['turing_number'][-1])
+    else:
+        response.write('OK')
     return response
 
 
@@ -75,15 +91,18 @@ def router_middleware(request, following):
     elif path.startswith('/verify'):
         response = verify(request)
     elif path.startswith('/captcha.jpg'):
-        response = captcha_handler(request)
+        response = captcha.render(request)
     else:
         response = not_found()
     return response
 
 
-options = {}
+options = {
+    'http_cache_factory': cache_factory
+}
 main = WSGIApplication([
     bootstrap_http_defaults,
+    http_cache_middleware_factory,
     lambda ignore: router_middleware
 ], options)
 
