@@ -44,6 +44,7 @@ captcha_image = captcha(drawings=[
 
 
 captcha = CaptchaContext(captcha_image, cache_factory)
+captcha_handler = captcha.render(quality=65)
 
 
 @accept_method(('GET', 'POST'))
@@ -51,7 +52,7 @@ def welcome(request):
     message, error = '', ''
     if request.method == 'POST':
         errors = {}
-        if not captcha.validate(request, errors):
+        if not captcha.validate(request, errors, gettext=lambda s: s):
             error = errors['turing_number'][-1]
         else:
             message = 'Well done!'
@@ -86,7 +87,7 @@ def router_middleware(request, following):
     if path == '/':
         response = welcome(request)
     elif path.startswith('/captcha.jpg'):
-        response = captcha.render(request)
+        response = captcha_handler(request)
     else:
         response = not_found()
     return response

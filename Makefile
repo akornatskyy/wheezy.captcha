@@ -1,5 +1,5 @@
-.SILENT: clean env doctest-cover test doc release upload
-.PHONY: clean env doctest-cover test doc release upload
+.SILENT: clean env doctest-cover test doc release upload po
+.PHONY: clean env doctest-cover test doc release upload po
 
 VERSION=2.7
 PYPI=http://pypi.python.org/simple
@@ -11,7 +11,7 @@ PYTEST=env/bin/py.test-$(VERSION)
 NOSE=env/bin/nosetests-$(VERSION)
 SPHINX=/usr/bin/python /usr/bin/sphinx-build
 
-all: clean doctest-cover test release
+all: clean po doctest-cover test release
 
 debian:
 	apt-get -y update
@@ -20,7 +20,7 @@ debian:
 	# http://mindref.blogspot.com/2011/09/compile-python-from-source.html
 	apt-get -y install libbz2-dev build-essential python \
 		python-dev python-setuptools python-virtualenv \
-		python-sphinx libfreetype6-dev libjpeg8-dev
+		python-sphinx gettext libfreetype6-dev libjpeg8-dev
 
 env:
 	# The following packages available for python < 3.0
@@ -95,6 +95,17 @@ doc:
 
 test-demos:
 	$(PYTEST) -q -x
+
+po:
+	xgettext --join-existing --sort-by-file --omit-header \
+		--add-comments \
+		-o i18n/captcha.po src/wheezy/captcha/*.py
+	cp i18n/captcha.po i18n/en/LC_MESSAGES
+	for l in `ls --hide *.po i18n`; do \
+		echo -n "$$l => "; \
+		msgfmt -v i18n/$$l/LC_MESSAGES/captcha.po \
+			-o i18n/$$l/LC_MESSAGES/captcha.mo; \
+	done
 
 run:
 	$(PYTHON) demos/app.py

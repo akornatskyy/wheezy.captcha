@@ -20,10 +20,7 @@ from wheezy.http import response_cache
 class FileAdapter(object):
 
     def __init__(self, response):
-        self.response = response
-
-    def write(self, b):
-        self.response.write_bytes(b)
+        self.write = response.write_bytes
 
 
 class CaptchaContext(object):
@@ -33,8 +30,7 @@ class CaptchaContext(object):
                  timeout=5 * 60, profile=None,
                  chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',
                  max_chars=4, wait_timeout=2,
-                 challenge_key='c', turing_key='turing_number',
-                 gettext=None):
+                 challenge_key='c', turing_key='turing_number'):
         self.image = image
         self.cache_factory = cache_factory
         self.prefix = prefix
@@ -53,13 +49,8 @@ class CaptchaContext(object):
                 vary_query=[challenge_key],
                 duration=timedelta(seconds=wait_timeout),
                 no_store=True)
-        if gettext:
-            self._ = gettext
-        else:
-            self._ = lambda s: s
 
-    @property
-    def render(self):
+    def render(self, content_type='image/jpg', format='JPEG', **options):
         @accept_method('GET')
         @response_cache(self.profile)
         def handler(request):
@@ -77,9 +68,9 @@ class CaptchaContext(object):
                     return bad_request()
             finally:
                 context.__exit__(None, None, None)
-            response = HTTPResponse('image/jpg')
+            response = HTTPResponse(content_type)
             self.image(turing_number).save(
-                FileAdapter(response), 'JPEG', quality=65)
+                FileAdapter(response), format, **options)
             return response
         return handler
 
@@ -89,24 +80,24 @@ class CaptchaContext(object):
         else:
             return request.query[self.challenge_key][0]
 
-    def validate(self, request, errors):
+    def validate(self, request, errors, gettext):
         if self.challenge_key not in request.form:
-            self.append_error(errors, self._(
+            self.append_error(errors, gettext(
                 'The challenge code is not available.'))
             return False
         if self.turing_key not in request.form:
-            self.append_error(errors, self._(
+            self.append_error(errors, gettext(
                 'The turing number is not available.'))
             return False
         form = last_item_adapter(request.form)
         challenge_code = form[self.challenge_key]
         if len(challenge_code) != 22:
-            self.append_error(errors, self._(
+            self.append_error(errors, gettext(
                 'The challenge code is invalid.'))
             return False
         entered_turing_number = form[self.turing_key]
         if len(entered_turing_number) != self.max_chars:
-            self.append_error(errors, self._(
+            self.append_error(errors, gettext(
                 'The turing number is invalid.'))
             return False
 
@@ -116,7 +107,7 @@ class CaptchaContext(object):
             cache = context.__enter__()
             data = cache.get(key, self.namespace)
             if not data:
-                self.append_error(errors, self._(
+                self.append_error(errors, gettext(
                     'The code you typed has expired after %d seconds.')
                     % self.timeout)
                 return False
@@ -125,13 +116,13 @@ class CaptchaContext(object):
             context.__exit__(None, None, None)
         issued, turing_number = data
         if issued + self.wait_timeout > int(time()):
-            self.append_error(errors, self._(
+            self.append_error(errors, gettext(
                 'The code was typed too quickly. Wait at least %d seconds.')
                 % self.wait_timeout)
             return False
         if turing_number != entered_turing_number.upper():
             self.append_error(
-                errors, self._('The code you typed has no match.'))
+                errors, gettext('The code you typed has no match.'))
             return False
         return True
 

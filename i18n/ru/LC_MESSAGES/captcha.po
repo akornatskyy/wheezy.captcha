@@ -1,0 +1,45 @@
+# Messages for ``wheezy.captcha``.
+# Copyright (C) 2012 Andriy Kornatskyy
+# Andriy Kornatskyy <andriy.kornatskyy@live.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: wheezy.captcha\n"
+"Report-Msgid-Bugs-To: Andriy Kornatskyy <andriy.kornatskyy@live.com>\n"
+"POT-Creation-Date: 2012-07-02 10:15+0300\n"
+"PO-Revision-Date: 2012-07-02 10:15+0300\n"
+"Last-Translator: Andriy Kornatskyy <andriy.kornatskyy@live.com>\n"
+"Language: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/wheezy/captcha/http.py:95
+msgid "The challenge code is not available."
+msgstr "Проверочный код недоступен."
+
+#: src/wheezy/captcha/http.py:99
+msgid "The turing number is not available."
+msgstr "Число Тьюринга недоступно."
+
+#: src/wheezy/captcha/http.py:105
+msgid "The challenge code is invalid."
+msgstr "Неверный проверочный код."
+
+#: src/wheezy/captcha/http.py:110
+msgid "The turing number is invalid."
+msgstr "Неверное число Тьюринга."
+
+#: src/wheezy/captcha/http.py:120
+#, python-format
+msgid "The code you typed has expired after %d seconds."
+msgstr "Вышел строк действия кода после {0:N0} секунд ожидания."
+
+#: src/wheezy/captcha/http.py:129
+#, python-format
+msgid "The code was typed too quickly. Wait at least %d seconds."
+msgstr "Код введен слишком быстро. Подождите не менее {0:N0} секунд."
+
+#: src/wheezy/captcha/http.py:134
+msgid "The code you typed has no match."
+msgstr "Нет соответствий с введенным кодом."

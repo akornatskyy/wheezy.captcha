@@ -1,0 +1,52 @@
+# Messages for ``wheezy.captcha``.
+# Copyright (C) 2012 Andriy Kornatskyy
+# Andriy Kornatskyy <andriy.kornatskyy@live.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: wheezy.captcha\n"
+"Report-Msgid-Bugs-To: Andriy Kornatskyy <andriy.kornatskyy@live.com>\n"
+"POT-Creation-Date: 2012-07-02 10:15+0300\n"
+"PO-Revision-Date: 2012-07-02 10:15+0300\n"
+"Last-Translator: Andriy Kornatskyy <andriy.kornatskyy@live.com>\n"
+"Language: US English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/wheezy/captcha/http.py:86 src/wheezy/captcha/http.py:92
+#: src/wheezy/captcha/http.py:95
+msgid "The challenge code is not available."
+msgstr "The challenge code is not available."
+
+#: src/wheezy/captcha/http.py:90 src/wheezy/captcha/http.py:96
+#: src/wheezy/captcha/http.py:99
+msgid "The turing number is not available."
+msgstr "The turing number is not available."
+
+#: src/wheezy/captcha/http.py:96 src/wheezy/captcha/http.py:102
+#: src/wheezy/captcha/http.py:105
+msgid "The challenge code is invalid."
+msgstr "The challenge code is invalid."
+
+#: src/wheezy/captcha/http.py:101 src/wheezy/captcha/http.py:107
+#: src/wheezy/captcha/http.py:110
+msgid "The turing number is invalid."
+msgstr "The turing number is invalid."
+
+#: src/wheezy/captcha/http.py:111 src/wheezy/captcha/http.py:117
+#: src/wheezy/captcha/http.py:120
+#, python-format
+msgid "The code you typed has expired after %d seconds."
+msgstr "The code you typed has expired after %d seconds."
+
+#: src/wheezy/captcha/http.py:120 src/wheezy/captcha/http.py:126
+#: src/wheezy/captcha/http.py:129
+#, python-format
+msgid "The code was typed too quickly. Wait at least %d seconds."
+msgstr "The code was typed too quickly. Wait at least %d seconds."
+
+#: src/wheezy/captcha/http.py:125 src/wheezy/captcha/http.py:131
+#: src/wheezy/captcha/http.py:134
+msgid "The code you typed has no match."
+msgstr "The code you typed has no match."
