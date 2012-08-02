@@ -46,13 +46,21 @@ captcha_image = captcha(drawings=[
 captcha = CaptchaContext(captcha_image, cache_factory)
 
 
-@accept_method('GET')
+@accept_method(('GET', 'POST'))
 def welcome(request):
+    message, error = '', ''
+    if request.method == 'POST':
+        errors = {}
+        if not captcha.validate(request, errors):
+            error = errors['turing_number'][-1]
+        else:
+            message = 'Well done!'
     challenge_code = captcha.get_challenge_code(request)
     response = HTTPResponse()
     response.write("""
-<html><body><form action="/verify" method="post">
+<html><body><form method="post">
 <h2>Captcha Verification</h2>
+<span style="color: green"><b>%s</b></span>
 <p>Please enter the text from image:</p>
 <p>
     <label for="turing_number">
@@ -65,22 +73,11 @@ def welcome(request):
     <input id="turing_number" name="turing_number" type="text"
         maxlength="4" style="width:200;text-transform: uppercase;"
         autocomplete="off" />
+    <span style="color:red">%s</span>
 </p>
-%s
 <p><input type="submit" value="Verify"></p>
 </form></body></html>
-    """ % (challenge_code, challenge_code, challenge_code, challenge_code))
-    return response
-
-
-@accept_method('POST')
-def verify(request):
-    response = HTTPResponse()
-    errors = {}
-    if not captcha.validate(request, errors):
-        response.write(errors['turing_number'][-1])
-    else:
-        response.write('OK')
+    """ % (message, challenge_code, challenge_code, challenge_code, error))
     return response
 
 
@@ -88,8 +85,6 @@ def router_middleware(request, following):
     path = request.path
     if path == '/':
         response = welcome(request)
-    elif path.startswith('/verify'):
-        response = verify(request)
     elif path.startswith('/captcha.jpg'):
         response = captcha.render(request)
     else:
