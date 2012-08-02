@@ -43,3 +43,7 @@ msgstr "Код введен слишком быстро. Подождите не
 #: src/wheezy/captcha/http.py:134
 msgid "The code you typed has no match."
 msgstr "Нет соответствий с введенным кодом."
+
+#: src/wheezy/captcha/mixin.py:23
+msgid "If you cannot read, click to generate a new one."
+msgstr "Если вы не можете прочитать, нажмите чтобы сгенерировать еще."
