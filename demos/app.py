@@ -44,7 +44,7 @@ captcha_image = captcha(drawings=[
 
 
 captcha = CaptchaContext(captcha_image, cache_factory)
-captcha_handler = captcha.render(quality=65)
+captcha_handler = captcha.create_handler(quality=65)
 
 
 @accept_method(('GET', 'POST'))
