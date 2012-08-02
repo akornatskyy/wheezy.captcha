@@ -30,7 +30,8 @@ class CaptchaContext(object):
                  timeout=5 * 60, profile=None,
                  chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',
                  max_chars=4, wait_timeout=2,
-                 challenge_key='c', turing_key='turing_number'):
+                 challenge_key='c', turing_key='turing_number',
+                 enabled=True):
         self.image = image
         self.cache_factory = cache_factory
         self.prefix = prefix
@@ -41,6 +42,7 @@ class CaptchaContext(object):
         self.max_chars = max_chars
         self.challenge_key = challenge_key
         self.turing_key = turing_key
+        self.enabled = enabled
         if profile:
             self.profile = profile
         else:
@@ -50,7 +52,8 @@ class CaptchaContext(object):
                 duration=timedelta(seconds=wait_timeout),
                 no_store=True)
 
-    def render(self, content_type='image/jpg', format='JPEG', **options):
+    def create_handler(self, content_type='image/jpg', format='JPEG',
+                       **options):
         @accept_method('GET')
         @response_cache(self.profile)
         def handler(request):
@@ -81,6 +84,8 @@ class CaptchaContext(object):
             return request.query[self.challenge_key][0]
 
     def validate(self, request, errors, gettext):
+        if not self.enabled:
+            return True
         if self.challenge_key not in request.form:
             self.append_error(errors, gettext(
                 'The challenge code is not available.'))
