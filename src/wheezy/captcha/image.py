@@ -37,6 +37,28 @@ def smooth():
     return drawer
 
 
+def curve(color='#5C87B2', width=4, number=6):
+    from wheezy.captcha.bezier import make_bezier
+    if not callable(color):
+        c = getrgb(color)
+        color = lambda: c
+
+    def drawer(image, text):
+        dx, height = image.size
+        dx = dx / number
+        path = [(dx * i, random.randint(0, height))
+                for i in range(1, number)]
+        bcoefs = make_bezier(number - 1)
+        points = []
+        for coefs in bcoefs:
+            points.append(tuple(sum([coef * p for coef, p in zip(coefs, ps)])
+                          for ps in zip(*path)))
+        draw = Draw(image)
+        draw.line(points, fill=color(), width=width)
+        return image
+    return drawer
+
+
 def noise(number=50, color='#EEEECC', level=2):
     if not callable(color):
         c = getrgb(color)
@@ -147,7 +169,9 @@ if __name__ == '__main__':
             drawings=[
                 warp(),
                 rotate(),
-                offset()]),
+                offset()
+            ]),
+        curve(),
         noise(),
         smooth()
     ])

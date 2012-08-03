@@ -16,6 +16,7 @@ from wheezy.captcha.http import CaptchaContext
 from wheezy.captcha.image import captcha
 
 from wheezy.captcha.image import background
+from wheezy.captcha.image import curve
 from wheezy.captcha.image import noise
 from wheezy.captcha.image import smooth
 from wheezy.captcha.image import text
@@ -38,6 +39,7 @@ captcha_image = captcha(drawings=[
             rotate(),
             offset()
         ]),
+    curve(),
     noise(),
     smooth()
 ])

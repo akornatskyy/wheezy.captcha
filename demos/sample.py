@@ -4,6 +4,7 @@
 from wheezy.captcha.image import captcha
 
 from wheezy.captcha.image import background
+from wheezy.captcha.image import curve
 from wheezy.captcha.image import noise
 from wheezy.captcha.image import smooth
 from wheezy.captcha.image import text
@@ -24,7 +25,9 @@ if __name__ == '__main__':
             drawings=[
                 warp(),
                 rotate(),
-                offset()]),
+                offset()
+            ]),
+        curve(),
         noise(),
         smooth()
     ])
