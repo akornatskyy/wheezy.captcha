@@ -27,7 +27,6 @@ from wheezy.captcha.image import warp
 
 
 cache = MemoryCache()
-cache_factory = lambda: cache
 
 captcha_image = captcha(drawings=[
     background(),
@@ -45,7 +44,7 @@ captcha_image = captcha(drawings=[
 ])
 
 
-captcha = CaptchaContext(captcha_image, cache_factory)
+captcha = CaptchaContext(captcha_image, cache)
 captcha_handler = captcha.create_handler(quality=65)
 
 
@@ -96,7 +95,7 @@ def router_middleware(request, following):
 
 
 options = {
-    'http_cache_factory': cache_factory
+    'http_cache': cache
 }
 main = WSGIApplication([
     bootstrap_http_defaults,
