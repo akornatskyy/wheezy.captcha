@@ -17,12 +17,8 @@ class CaptchaMixin(object):
 
     def captcha_widget(self, path):
         ctx = self.captcha_context
-        return ('<img id="captcha" src="' + path + '?'
-                + ctx.challenge_key + '=' + self.challenge_code
-                + '" title="'
-                + self._('If you cannot read, click to generate a new one.')
-                + '" /><input type="hidden" name="'
-                + ctx.challenge_key
-                + '" value="'
-                + self.challenge_code
-                + '" />')
+        return ('<img id="captcha" src="%s?%s=%s" title="%s" />'
+                '<input type="hidden" name="%s" value="%s" />' %
+                (path, ctx.challenge_key, self.challenge_code,
+                 self._('If you cannot read, click to generate a new one.'),
+                 ctx.challenge_key, self.challenge_code))

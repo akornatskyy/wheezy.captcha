@@ -26,14 +26,14 @@ class FileAdapter(object):
 class CaptchaContext(object):
 
     def __init__(self, image,
-                 cache_factory, prefix='captcha:', namespace=None,
+                 cache, prefix='captcha:', namespace=None,
                  timeout=5 * 60, profile=None,
                  chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',
                  max_chars=4, wait_timeout=2,
                  challenge_key='c', turing_key='turing_number',
                  enabled=True):
         self.image = image
-        self.cache_factory = cache_factory
+        self.cache = cache
         self.prefix = prefix
         self.namespace = namespace
         self.timeout = timeout
@@ -62,15 +62,10 @@ class CaptchaContext(object):
             challenge_code = last_item_adapter(
                 request.query)[self.challenge_key]
             turing_number = ''.join(random.sample(self.chars, self.max_chars))
-            context = self.cache_factory()
-            try:
-                cache = context.__enter__()
-                if not cache.set(self.prefix + challenge_code,
-                                 (int(time()), turing_number),
-                                 self.timeout, self.namespace):
-                    return bad_request()
-            finally:
-                context.__exit__(None, None, None)
+            if not self.cache.set(self.prefix + challenge_code,
+                                  (int(time()), turing_number),
+                                  self.timeout, self.namespace):
+                return bad_request()
             response = HTTPResponse(content_type)
             self.image(turing_number).save(
                 FileAdapter(response), format, **options)
@@ -107,18 +102,13 @@ class CaptchaContext(object):
             return False
 
         key = self.prefix + challenge_code
-        context = self.cache_factory()
-        try:
-            cache = context.__enter__()
-            data = cache.get(key, self.namespace)
-            if not data:
-                self.append_error(errors, gettext(
-                    'The code you typed has expired after %d seconds.')
-                    % self.timeout)
-                return False
-            cache.delete(key, 0, self.namespace)
-        finally:
-            context.__exit__(None, None, None)
+        data = self.cache.get(key, self.namespace)
+        if not data:
+            self.append_error(errors, gettext(
+                'The code you typed has expired after %d seconds.')
+                % self.timeout)
+            return False
+        self.cache.delete(key, 0, self.namespace)
         issued, turing_number = data
         if issued + self.wait_timeout > int(time()):
             self.append_error(errors, gettext(
