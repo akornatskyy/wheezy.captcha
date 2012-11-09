@@ -33,12 +33,12 @@ msgstr "Неверное число Тьюринга."
 #: src/wheezy/captcha/http.py:120
 #, python-format
 msgid "The code you typed has expired after %d seconds."
-msgstr "Вышел строк действия кода после {0:N0} секунд ожидания."
+msgstr "Вышел строк действия кода после %d секунд ожидания."
 
 #: src/wheezy/captcha/http.py:129
 #, python-format
 msgid "The code was typed too quickly. Wait at least %d seconds."
-msgstr "Код введен слишком быстро. Подождите не менее {0:N0} секунд."
+msgstr "Код введен слишком быстро. Подождите не менее %d секунд."
 
 #: src/wheezy/captcha/http.py:134
 msgid "The code you typed has no match."
