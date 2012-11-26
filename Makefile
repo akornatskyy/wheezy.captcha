@@ -56,6 +56,7 @@ release:
 
 upload:
 	REV=$$(hg head --template '{rev}');\
+	sed -i "s/'0.1'/'0.1.$$REV'/" src/wheezy/captcha/__init__.py ; \
 	if [ "$$(echo $(VERSION) | sed 's/\.//')" -eq 27 ]; then \
 		$(PYTHON) setup.py -q egg_info --tag-build .$$REV \
 			sdist register upload; \
