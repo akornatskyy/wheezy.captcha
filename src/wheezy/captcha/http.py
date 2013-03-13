@@ -50,7 +50,8 @@ class CaptchaContext(object):
                 'server',
                 vary_query=[challenge_key],
                 duration=timedelta(seconds=wait_timeout),
-                no_store=True)
+                no_store=True,
+                namespace=namespace)
 
     def create_handler(self, content_type='image/jpg', format='JPEG',
                        **options):
