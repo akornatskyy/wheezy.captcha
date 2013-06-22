@@ -4,5 +4,5 @@ Modules
 wheezy.caching
 --------------
 
-.. automodule:: wheezy.caching
+.. automodule:: wheezy.captcha
    :members:

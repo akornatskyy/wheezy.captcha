@@ -2,12 +2,13 @@
 """
 
 import random
-import Image
-import ImageFilter
 
-from ImageColor import getrgb
-from ImageDraw import Draw
-from ImageFont import truetype
+from wheezy.captcha.comp import Draw
+from wheezy.captcha.comp import Image
+from wheezy.captcha.comp import ImageFilter
+from wheezy.captcha.comp import getrgb
+from wheezy.captcha.comp import truetype
+from wheezy.captcha.comp import xrange
 
 
 def captcha(drawings, width=200, height=75):
@@ -109,7 +110,7 @@ def text(fonts, font_sizes=None, drawings=None, color='#5C87B2',
             c_width, c_height = char_image.size
             mask = char_image.convert('L').point(lambda i: i * 1.97)
             image.paste(char_image,
-                        (offset, (height - c_height) / 2),
+                        (offset, int((height - c_height) / 2)),
                         mask)
             offset += int(c_width * squeeze_factor)
         return image

@@ -23,26 +23,23 @@ debian:
 		python-sphinx gettext libfreetype6-dev libjpeg8-dev
 
 env:
-	# The following packages available for python < 3.0
-	if [ "$$(echo $(VERSION) | sed 's/\.//')" -lt 30 ]; then \
-		PYTHON_EXE=/usr/local/bin/python$(VERSION); \
-		if [ ! -x $$PYTHON_EXE ]; then \
-			PYTHON_EXE=/usr/bin/python$(VERSION); \
-		fi;\
-		VIRTUALENV_USE_SETUPTOOLS=1; \
-		export VIRTUALENV_USE_SETUPTOOLS; \
-		virtualenv --python=$$PYTHON_EXE \
-			--no-site-packages env; \
-		if [ "$$(echo $(VERSION) | sed 's/\.//')" -ge 30 ]; then \
-			echo -n 'Upgrading distribute...'; \
-			$(EASY_INSTALL) -i $(PYPI) -U -O2 distribute \
-				> /dev/null 2>/dev/null; \
-			echo 'done.'; \
-		fi; \
-		$(EASY_INSTALL) -i $(PYPI) -O2 coverage nose pytest \
-			pytest-pep8 pytest-cov wheezy.caching wheezy.http; \
-		$(PYTHON) setup.py develop -i $(PYPI); \
-	fi;
+	PYTHON_EXE=/usr/local/bin/python$(VERSION); \
+	if [ ! -x $$PYTHON_EXE ]; then \
+		PYTHON_EXE=/usr/bin/python$(VERSION); \
+	fi;\
+	VIRTUALENV_USE_SETUPTOOLS=1; \
+	export VIRTUALENV_USE_SETUPTOOLS; \
+	virtualenv --python=$$PYTHON_EXE \
+		--no-site-packages env; \
+	if [ "$$(echo $(VERSION) | sed 's/\.//')" -ge 30 ]; then \
+		echo -n 'Upgrading distribute...'; \
+		$(EASY_INSTALL) -i $(PYPI) -U -O2 distribute \
+			> /dev/null 2>/dev/null; \
+		echo 'done.'; \
+	fi; \
+	$(EASY_INSTALL) -i $(PYPI) -O2 coverage nose pytest \
+		pytest-pep8 pytest-cov wheezy.caching wheezy.http; \
+	$(PYTHON) setup.py develop -i $(PYPI); \
 
 clean:
 	find src/ -type d -name __pycache__ | xargs rm -rf

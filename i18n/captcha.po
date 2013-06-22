@@ -14,33 +14,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/wheezy/captcha/http.py:86 src/wheezy/captcha/http.py:95
+#: src/wheezy/captcha/http.py:86 src/wheezy/captcha/http.py:87
+#: src/wheezy/captcha/http.py:95
 msgid "The challenge code is not available."
 msgstr "The challenge code is not available."
 
-#: src/wheezy/captcha/http.py:90 src/wheezy/captcha/http.py:99
+#: src/wheezy/captcha/http.py:90 src/wheezy/captcha/http.py:91
+#: src/wheezy/captcha/http.py:99
 msgid "The turing number is not available."
 msgstr "The turing number is not available."
 
-#: src/wheezy/captcha/http.py:96 src/wheezy/captcha/http.py:105
+#: src/wheezy/captcha/http.py:96 src/wheezy/captcha/http.py:97
+#: src/wheezy/captcha/http.py:105
 msgid "The challenge code is invalid."
 msgstr "The challenge code is invalid."
 
-#: src/wheezy/captcha/http.py:101 src/wheezy/captcha/http.py:110
+#: src/wheezy/captcha/http.py:101 src/wheezy/captcha/http.py:102
+#: src/wheezy/captcha/http.py:110
 msgid "The turing number is invalid."
 msgstr "The turing number is invalid."
 
-#: src/wheezy/captcha/http.py:108 src/wheezy/captcha/http.py:120
+#: src/wheezy/captcha/http.py:108 src/wheezy/captcha/http.py:109
+#: src/wheezy/captcha/http.py:120
 #, python-format
 msgid "The code you typed has expired after %d seconds."
 msgstr "The code you typed has expired after %d seconds."
 
-#: src/wheezy/captcha/http.py:115 src/wheezy/captcha/http.py:129
+#: src/wheezy/captcha/http.py:115 src/wheezy/captcha/http.py:116
+#: src/wheezy/captcha/http.py:129
 #, python-format
 msgid "The code was typed too quickly. Wait at least %d seconds."
 msgstr "The code was typed too quickly. Wait at least %d seconds."
 
-#: src/wheezy/captcha/http.py:120 src/wheezy/captcha/http.py:134
+#: src/wheezy/captcha/http.py:120 src/wheezy/captcha/http.py:121
+#: src/wheezy/captcha/http.py:134
 msgid "The code you typed has no match."
 msgstr "The code you typed has no match."
 

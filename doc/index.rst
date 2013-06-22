@@ -7,9 +7,11 @@ Introduction
 ------------
 
 :ref:`wheezy.captcha` is a `python`_ package written in pure Python code.
-It is a lightweight captcha library that provides integration with:
+It is a lightweight captcha library that provides integration
+with (one of below must be installed):
 
 * `PIL`_ - Python Imaging Library 1.1.7.
+* `Pillow`_ - Python Imaging Library (fork).
 
 It is optimized for performance, well tested and documented.
 
@@ -37,6 +39,7 @@ Contents
 .. _`examples`: http://bitbucket.org/akorn/wheezy.captcha/src/tip/demos
 .. _`issues`: http://bitbucket.org/akorn/wheezy.captcha/issues
 .. _`pil`: http://www.pythonware.com/products/pil/
+.. _`pillow`: https://pypi.python.org/pypi/Pillow
 .. _`pypi`: http://pypi.python.org
 .. _`python`: http://www.python.org
 .. _`readthedocs`: http://readthedocs.org/builds/wheezycaptcha

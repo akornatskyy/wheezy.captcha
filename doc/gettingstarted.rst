@@ -5,11 +5,14 @@ Getting Started
 Install
 -------
 
-:ref:`wheezy.captcha` requires `python`_ version 2.4 to 2.7 or 3.2.
+:ref:`wheezy.captcha` requires `python`_ version 2.4 to 2.7 or 3.2+.
 It is independent of operating system. You can install it from `pypi`_
-site using `setuptools`_::
+site using `setuptools`_ (you need specify extra requirements per
+imaging library of your choice)::
 
     $ easy_install wheezy.captcha
+    $ easy_install wheezy.captcha[PIL]
+    $ easy_install wheezy.captcha[Pillow]
 
 If you are using `virtualenv`_::
 

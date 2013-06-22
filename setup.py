@@ -10,7 +10,6 @@ except:
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
 install_requires = [
-    'PIL>=1.1.7'
 ]
 
 try:
@@ -42,8 +41,9 @@ setup(
         'Programming Language :: Python :: 2.5',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        #'Programming Language :: Python :: 3',
-        #'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Internet :: WWW/HTTP',
@@ -61,6 +61,12 @@ setup(
     zip_safe=False,
     install_requires=install_requires,
     extras_require={
+        'PIL': [
+            'PIL'
+        ],
+        'Pillow': [
+            'Pillow'
+        ],
         'dev': [
             'coverage',
             'nose',
