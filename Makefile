@@ -39,7 +39,12 @@ env:
 	fi; \
 	$(EASY_INSTALL) -i $(PYPI) -O2 coverage nose pytest \
 		pytest-pep8 pytest-cov wheezy.caching wheezy.http; \
-	$(PYTHON) setup.py develop -i $(PYPI); \
+	if [ "$$(echo $(VERSION) | sed 's/\.//')" -lt 30 ]; then \
+		$(EASY_INSTALL) -i $(PYPI) -O2 PIL; \
+	else \
+		$(EASY_INSTALL) -i $(PYPI) -O2 pillow; \
+	fi ; \
+	$(PYTHON) setup.py develop -i $(PYPI)
 
 clean:
 	find src/ -type d -name __pycache__ | xargs rm -rf
@@ -47,9 +52,7 @@ clean:
 	rm -rf dist/ build/ MANIFEST src/*.egg-info .cache .coverage
 
 release:
-	if [ "$$(echo $(VERSION) | sed 's/\.//')" -lt 30 ]; then \
-		$(PYTHON) setup.py -q bdist_egg; \
-	fi
+	$(PYTHON) setup.py -q bdist_egg
 
 upload:
 	REV=$$(hg head --template '{rev}');\
@@ -62,12 +65,10 @@ upload:
 			-a -b html doc/ doc/_build/;\
 		python setup.py upload_docs; \
 	fi; \
-	if [ "$$(echo $(VERSION) | sed 's/\.//')" -lt 30 ]; then \
-		$(PYTHON) setup.py -q egg_info --tag-build .$$REV \
-			bdist_egg --dist-dir=$(DIST_DIR) \
-			rotate --match=$(VERSION).egg --keep=1 --dist-dir=$(DIST_DIR) \
-			upload; \
-	fi
+	$(PYTHON) setup.py -q egg_info --tag-build .$$REV \
+		bdist_egg --dist-dir=$(DIST_DIR) \
+		rotate --match=$(VERSION).egg --keep=1 --dist-dir=$(DIST_DIR) \
+		upload
 
 qa:
 	if [ "$$(echo $(VERSION) | sed 's/\.//')" -eq 27 ]; then \
@@ -76,18 +77,12 @@ qa:
 	fi
 
 test:
-	# The can be run for python < 3.0
-	if [ "$$(echo $(VERSION) | sed 's/\.//')" -lt 30 ]; then \
-		$(PYTEST) -q -x --pep8 --doctest-modules \
-			src/wheezy/captcha demos/; \
-	fi
+	$(PYTEST) -q -x --pep8 --doctest-modules \
+		src/wheezy/captcha demos/
 
 doctest-cover:
-	# The can be run for python < 3.0
-	if [ "$$(echo $(VERSION) | sed 's/\.//')" -lt 30 ]; then \
-		$(NOSE) --stop --with-doctest --detailed-errors \
-			--with-coverage --cover-package=wheezy.captcha; \
-	fi
+	$(NOSE) --stop --with-doctest --detailed-errors \
+		--with-coverage --cover-package=wheezy.captcha
 
 test-cover:
 	$(PYTEST) -q --cov wheezy.caching \
