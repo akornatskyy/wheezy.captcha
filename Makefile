@@ -41,7 +41,7 @@ env:
 		echo 'done.'; \
 	fi; \
 	$(EASY_INSTALL) -i $(PYPI) -O2 coverage nose pytest \
-		pytest-pep8 pytest-cov wheezy.caching wheezy.http; \
+		pytest-pep8 pytest-cov wheezy.web ; \
 	if [ "$$(echo $(VERSION) | sed 's/\.//')" -lt 30 ]; then \
 		$(EASY_INSTALL) -i $(PYPI) -O2 PIL; \
 	else \
@@ -52,6 +52,7 @@ env:
 clean:
 	find src/ -type d -name __pycache__ | xargs rm -rf
 	find src/ -name '*.py[co]' -delete
+	find demos/ -name '*.py[co]' -delete
 	find i18n/ -name '*.mo' -delete
 	rm -rf dist/ build/ MANIFEST src/*.egg-info .cache .coverage
 
@@ -104,7 +105,7 @@ po:
 		--add-comments \
 		-o i18n/captcha.po src/wheezy/captcha/*.py
 	cp i18n/captcha.po i18n/en/LC_MESSAGES
-	for l in `ls --hide *.po i18n`; do \
+	for l in `ls -d i18n/*/ | cut -d / -f 2`; do \
 		/bin/echo -n "$$l => "; \
 		msgfmt -v i18n/$$l/LC_MESSAGES/captcha.po \
 			-o i18n/$$l/LC_MESSAGES/captcha.mo; \
