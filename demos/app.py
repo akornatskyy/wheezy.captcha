@@ -1,7 +1,5 @@
-
 """
 """
-
 
 from wheezy.http import HTTPResponse
 from wheezy.http import WSGIApplication
