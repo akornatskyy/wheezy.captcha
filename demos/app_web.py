@@ -1,63 +1,103 @@
 """
 """
 
-from wheezy.http import HTTPResponse
+from wheezy.captcha.mixin import CaptchaMixin
+from wheezy.core.collections import attrdict
+from wheezy.core.descriptors import attribute
+from wheezy.html.ext.template import WhitespaceExtension
+from wheezy.html.ext.template import WidgetExtension
 from wheezy.http import WSGIApplication
-from wheezy.web.handlers.base import BaseHandler
 from wheezy.http.middleware import http_cache_middleware_factory
+from wheezy.routing import url
+from wheezy.template import Engine
+from wheezy.template.ext.core import CoreExtension
+from wheezy.template.loader import DictLoader
+from wheezy.web.handlers.base import BaseHandler
 from wheezy.web.middleware import bootstrap_defaults
 from wheezy.web.middleware import http_error_middleware_factory
 from wheezy.web.middleware import path_routing_middleware_factory
-
+from wheezy.web.templates import WheezyTemplate
 
 from shared import cache
 from shared import captcha
 from shared import captcha_handler
 
 
-class WelcomeHandler(BaseHandler):
+class WelcomeHandler(BaseHandler, CaptchaMixin):
 
-    def get(self, message='', error=''):
-        challenge_code = captcha.get_challenge_code(self.request)
-        response = HTTPResponse()
-        response.write("""
-    <html><body><form method="post">
-    <h2>Captcha Verification</h2>
-    <span style="color: green"><b>%s</b></span>
-    <p>Please enter the text from image:</p>
-    <p>
-        <label for="turing_number">
-            <img id="captcha" src="/captcha.jpg?c=%s"
-                style="display:block; width:200; height:75"
-                onclick="this.src='/captcha.jpg?c=%s&r=' + \
-                       Math.floor(Math.random()*100+1)"/>
-            <input type="hidden" name="c" value="%s" />
-        </label>
-        <input id="turing_number" name="turing_number" type="text"
-            maxlength="4" style="width:200;text-transform: uppercase;"
-            autocomplete="off" />
-        <span style="color:red">%s</span>
-    </p>
-    <p><input type="submit" value="Verify"></p>
-    </form></body></html>
-        """ % (message, challenge_code, challenge_code, challenge_code, error))
-        return response
+    captcha_context = captcha
+
+    @attribute
+    def model(self):
+        return attrdict({
+            'message': '',
+            'turing_number': ''
+        })
+
+    def get(self, message=''):
+        self.model.message = message
+        return self.render_response('welcome',
+                                    captcha=self.captcha_widget,
+                                    m=self.model)
 
     def post(self):
-        if not captcha.validate(self.request, self.errors,
-                                gettext=lambda s: s):
-            return self.get(error=self.errors['turing_number'][-1])
-        else:
-            return self.get('Well done!')
+        if not self.validate_captcha():
+            return self.get()
+        return self.get('Well done!')
 
+
+
+templates = {
+    'welcome': """@require(m, captcha, path_for, errors)
+<html><head><style>
+span {color: green;}
+span.error {color:red;}
+input[type=text] {width:200;text-transform: uppercase;}
+#captcha {display:block; width:200; height:75}
+</style></head><body>
+<h2>Captcha Verification: wheezy.web demo</h2>
+@if m.message:
+<span><b>@m.message</b></span>
+@end
+<form method="post">
+<p>Please enter the text from image:</p>
+<p>
+    <label for="turing_number">
+        @captcha(path_for('captcha'))
+    </label>
+    @m.turing_number.textbox(maxlength='4', autocomplete='off')
+    @m.turing_number.error()
+</p>
+<p><input type="submit" value="Verify"></p>
+</form>
+<script>
+window.onload=function()
+{
+    c = document.getElementById('captcha');
+    c.onclick = function() {
+        this.src=this.src.replace(/&r=\d+/g,'')+'&r='+Math.floor(Math.random()*100+1);
+    };
+}
+</script>
+</body></html>"""
+}
+
+engine = Engine(
+    loader=DictLoader(templates),
+    extensions=[
+        CoreExtension(),
+        WidgetExtension(),
+        WhitespaceExtension()
+    ])
 
 all_urls = [
     ('', WelcomeHandler),
-    ('captcha.jpg', captcha_handler)
+    url('captcha.jpg', captcha_handler, name='captcha')
 ]
 
 options = {
-    'http_cache': cache
+    'http_cache': cache,
+    'render_template': WheezyTemplate(engine)
 }
 main = WSGIApplication([
     bootstrap_defaults(url_mapping=all_urls),
@@ -68,9 +108,11 @@ main = WSGIApplication([
 
 
 if __name__ == '__main__':
+    from wsgiref.handlers import BaseHandler
     from wsgiref.simple_server import make_server
     try:
         print('Visit http://localhost:8080/')
+        BaseHandler.http_version = '1.1'
         make_server('', 8080, main).serve_forever()
     except KeyboardInterrupt:
         pass
