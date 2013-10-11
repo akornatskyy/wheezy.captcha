@@ -112,7 +112,7 @@ po:
 	done
 
 run:
-	$(PYTHON) demos/app.py
+	$(PYTHON) demos/app_web.py
 
 uwsgi:
 	env/bin/uwsgi --http-socket 0.0.0.0:8080  --disable-logging \
