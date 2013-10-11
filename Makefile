@@ -76,8 +76,8 @@ upload:
 
 qa:
 	if [ "$$(echo $(VERSION) | sed 's/\.//')" -eq 27 ]; then \
-		flake8 --max-complexity 10 demos doc src setup.py && \
-		pep8 demos doc src setup.py ; \
+		env/bin/flake8 --max-complexity 11 demos doc src setup.py && \
+		env/bin/pep8 demos doc src setup.py ; \
 	fi
 
 test:
