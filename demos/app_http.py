@@ -52,7 +52,8 @@ window.onload=function()
 {
     c = document.getElementById('captcha');
     c.onclick = function() {
-        this.src=this.src.replace(/&r=\d+/g,'')+'&r='+Math.floor(Math.random()*100+1);
+        this.src=this.src.replace(/&r=\d+/g,'') + '&r=' + \
+            Math.floor(Math.random() * 100 + 1);
     };
 }
 </script>
