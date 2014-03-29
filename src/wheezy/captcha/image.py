@@ -21,7 +21,7 @@ def captcha(drawings, width=200, height=75):
     return render
 
 
-#region: captcha drawers
+# region: captcha drawers
 
 def background(color='#EEEECC'):
     color = getrgb(color)
@@ -117,7 +117,7 @@ def text(fonts, font_sizes=None, drawings=None, color='#5C87B2',
     return drawer
 
 
-#region: text drawers
+# region: text drawers
 
 def warp(dx_factor=0.27, dy_factor=0.21):
     def drawer(image):
