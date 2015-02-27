@@ -7,6 +7,17 @@ try:
 except:
     from distutils.core import setup  # noqa
 
+extra = {}
+try:
+    from Cython.Build import cythonize
+    p = os.path.join('src', 'wheezy', 'captcha')
+    extra['ext_modules'] = cythonize(
+        [os.path.join(p, '*.py')],
+        exclude=os.path.join(p, '__init__.py'),
+        nthreads=2, quiet=True)
+except ImportError:
+    pass
+
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
 install_requires = [
@@ -78,5 +89,6 @@ setup(
         ],
     },
 
-    platforms='any'
+    platforms='any',
+    **extra
 )
