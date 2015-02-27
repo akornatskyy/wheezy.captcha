@@ -42,7 +42,9 @@ def curve(color='#5C87B2', width=4, number=6):
     from wheezy.captcha.bezier import make_bezier
     if not callable(color):
         c = getrgb(color)
-        color = lambda: c
+
+        def color():
+            return c
 
     def drawer(image, text):
         dx, height = image.size
@@ -63,7 +65,9 @@ def curve(color='#5C87B2', width=4, number=6):
 def noise(number=50, color='#EEEECC', level=2):
     if not callable(color):
         c = getrgb(color)
-        color = lambda: c
+
+        def color():
+            return c
 
     def drawer(image, text):
         width, height = image.size
@@ -87,7 +91,9 @@ def text(fonts, font_sizes=None, drawings=None, color='#5C87B2',
                    for size in font_sizes or (65, 70, 75)])
     if not callable(color):
         c = getrgb(color)
-        color = lambda: c
+
+        def color():
+            return c
 
     def drawer(image, text):
         draw = Draw(image)
@@ -104,8 +110,8 @@ def text(fonts, font_sizes=None, drawings=None, color='#5C87B2',
             char_images.append(char_image)
         width, height = image.size
         offset = int((width - sum(int(i.size[0] * squeeze_factor)
-                                  for i in char_images[:-1])
-                      - char_images[-1].size[0]) / 2)
+                                  for i in char_images[:-1]) -
+                      char_images[-1].size[0]) / 2)
         for char_image in char_images:
             c_width, c_height = char_image.size
             mask = char_image.convert('L').point(lambda i: i * 1.97)
