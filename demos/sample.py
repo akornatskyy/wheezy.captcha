@@ -1,6 +1,8 @@
 """
 """
 
+from wheezy.captcha.comp import ascii_uppercase
+
 from wheezy.captcha.image import captcha
 
 from wheezy.captcha.image import background
@@ -31,5 +33,5 @@ if __name__ == '__main__':
         noise(),
         smooth()
     ])
-    image = captcha_image(random.sample(string.uppercase + string.digits, 4))
+    image = captcha_image(random.sample(ascii_uppercase + string.digits, 4))
     image.save('sample.jpg', 'JPEG', quality=75)

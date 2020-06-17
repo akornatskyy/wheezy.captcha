@@ -1,11 +1,11 @@
-syntax: glob
 build/
 dist/
 env/
+doc/_build
 src/*.egg-info/
-.cache
+__pycache__/
+.pytest_cache/
+.cache/
 .coverage
 *.pyc
 *.pyo
-doc/_build
-*.mo

@@ -8,8 +8,10 @@ PY3 = sys.version_info[0] >= 3
 
 
 if PY3:  # pragma: nocover
+    from string import ascii_uppercase
     xrange = range
 else:  # pragma: nocover
+    from string import uppercase as ascii_uppercase
     xrange = xrange
 
 try:  # pragma: nocover

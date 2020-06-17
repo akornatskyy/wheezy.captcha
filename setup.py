@@ -2,10 +2,7 @@
 
 import os
 
-try:
-    from setuptools import setup
-except:
-    from distutils.core import setup  # noqa
+from setuptools import setup
 
 extra = {}
 try:
@@ -18,7 +15,7 @@ try:
 except ImportError:
     pass
 
-README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 
 install_requires = [
 ]
@@ -33,7 +30,8 @@ setup(
     version='0.1',
     description='A lightweight captcha library',
     long_description=README,
-    url='https://bitbucket.org/akorn/wheezy.captcha',
+    long_description_content_type='text/markdown',
+    url='https://github.com/akornatskyy/wheezy.captcha',
 
     author='Andriy Kornatskyy',
     author_email='andriy.kornatskyy at live.com',
@@ -79,13 +77,9 @@ setup(
             'Pillow'
         ],
         'dev': [
-            'coverage',
-            'nose',
             'pytest',
             'pytest-pep8',
-            'pytest-cov',
-            'wheezy.caching',
-            'wheezy.http'
+            'pytest-cov'
         ],
     },
 
