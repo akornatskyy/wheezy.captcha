@@ -1,6 +1,6 @@
 .. _`wheezy.captcha`:
 
-Wheezy Captcha
+wheezy.captcha
 ==============
 
 Introduction
@@ -18,9 +18,8 @@ It is optimized for performance, well tested and documented.
 Resources:
 
 * `source code`_, `examples`_ and `issues`_ tracker are available
-  on `bitbucket`_
-* `documentation`_, `readthedocs`_
-* `eggs`_ on `pypi`_
+  on `github`_
+* `documentation`_
 
 Contents
 --------
@@ -33,14 +32,11 @@ Contents
    userguide
    modules
 
-.. _`bitbucket`: http://bitbucket.org/akorn/wheezy.captcha
-.. _`documentation`: http://packages.python.org/wheezy.captcha
-.. _`eggs`: http://pypi.python.org/pypi/wheezy.captcha
-.. _`examples`: http://bitbucket.org/akorn/wheezy.captcha/src/tip/demos
-.. _`issues`: http://bitbucket.org/akorn/wheezy.captcha/issues
+.. _`github`: https://github.com/akornatskyy/wheezy.captcha
+.. _`documentation`: https://wheezycaptcha.readthedocs.io/en/latest/
+.. _`examples`: https://github.com/akornatskyy/wheezy.captcha/tree/master/demos
+.. _`issues`: https://github.com/akornatskyy/wheezy.captcha/issues
 .. _`pil`: http://www.pythonware.com/products/pil/
 .. _`pillow`: https://pypi.python.org/pypi/Pillow
-.. _`pypi`: http://pypi.python.org
 .. _`python`: http://www.python.org
-.. _`readthedocs`: http://readthedocs.org/builds/wheezycaptcha
-.. _`source code`: http://bitbucket.org/akorn/wheezy.captcha/src
+.. _`source code`: https://github.com/akornatskyy/wheezy.captcha
