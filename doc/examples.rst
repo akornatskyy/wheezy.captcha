@@ -2,10 +2,9 @@
 Examples
 ========
 
-We start with a simple example. Before we proceed
-let's setup a `virtualenv`_ environment::
+Before we proceed let's setup a `virtualenv`_ environment, activate it and
+install::
 
-    $ virtualenv env
-    $ env/bin/easy_install wheezy.captcha
+    $ pip install wheezy.captcha
 
 .. _`virtualenv`: http://pypi.python.org/pypi/virtualenv
