@@ -11,7 +11,7 @@ if PY3:  # pragma: nocover
     from string import ascii_uppercase
     xrange = range
 else:  # pragma: nocover
-    from string import uppercase as ascii_uppercase
+    from string import uppercase as ascii_uppercase  # noqa: F401
     xrange = xrange
 
 try:  # pragma: nocover

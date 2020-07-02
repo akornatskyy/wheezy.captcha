@@ -76,7 +76,7 @@ def noise(number=50, color='#EEEECC', level=2):
         dy = height / 10
         height = height - dy
         draw = Draw(image)
-        for i in xrange(number):
+        for _ in xrange(number):
             x = int(random.uniform(dx, width))
             y = int(random.uniform(dy, height))
             draw.line(((x, y), (x + level, y)), fill=color(), width=level)
@@ -109,9 +109,10 @@ def text(fonts, font_sizes=None, drawings=None, color='#5C87B2',
                 char_image = drawing(char_image)
             char_images.append(char_image)
         width, height = image.size
-        offset = int((width - sum(int(i.size[0] * squeeze_factor)
-                                  for i in char_images[:-1]) -
-                      char_images[-1].size[0]) / 2)
+        offset = int((
+            width - sum(
+                int(i.size[0] * squeeze_factor) for i in char_images[:-1]
+            ) - char_images[-1].size[0]) / 2)
         for char_image in char_images:
             c_width, c_height = char_image.size
             mask = char_image.convert('L').point(lambda i: i * 1.97)
@@ -170,9 +171,11 @@ if __name__ == '__main__':
     import string
     captcha_image = captcha(drawings=[
         background(),
-        text(fonts=[
-            'fonts/CourierNew-Bold.ttf',
-            'fonts/LiberationMono-Bold.ttf'],
+        text(
+            fonts=[
+                'fonts/CourierNew-Bold.ttf',
+                'fonts/LiberationMono-Bold.ttf'
+            ],
             drawings=[
                 warp(),
                 rotate(),

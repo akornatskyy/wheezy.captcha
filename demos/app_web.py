@@ -1,6 +1,10 @@
 """
 """
 
+from shared import cache
+from shared import captcha
+from shared import captcha_handler
+
 from wheezy.captcha.mixin import CaptchaMixin
 from wheezy.core.collections import attrdict
 from wheezy.core.descriptors import attribute
@@ -16,10 +20,6 @@ from wheezy.web.handlers.base import BaseHandler
 from wheezy.web.middleware import bootstrap_defaults
 from wheezy.web.middleware import path_routing_middleware_factory
 from wheezy.web.templates import WheezyTemplate
-
-from shared import cache
-from shared import captcha
-from shared import captcha_handler
 
 
 class WelcomeHandler(BaseHandler, CaptchaMixin):

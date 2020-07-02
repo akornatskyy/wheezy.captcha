@@ -3,7 +3,6 @@
 """
 
 import random
-
 from datetime import timedelta
 from time import time
 from uuid import uuid4
