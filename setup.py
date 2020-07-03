@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import re
 
 from setuptools import setup
 
@@ -16,6 +17,14 @@ except ImportError:
     pass
 
 README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
+VERSION = (
+    re.search(
+        r"__version__ = '(.+)'",
+        open("src/wheezy/captcha/__init__.py").read(),
+    )
+    .group(1)
+    .strip()
+)
 
 install_requires = [
 ]
@@ -27,18 +36,15 @@ except ImportError:
 
 setup(
     name='wheezy.captcha',
-    version='0.1',
+    version=VERSION,
     description='A lightweight captcha library',
     long_description=README,
     long_description_content_type='text/markdown',
     url='https://github.com/akornatskyy/wheezy.captcha',
-
     author='Andriy Kornatskyy',
-    author_email='andriy.kornatskyy at live.com',
-
+    author_email='andriy.kornatskyy@live.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
@@ -53,6 +59,11 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Internet :: WWW/HTTP',
@@ -66,7 +77,6 @@ setup(
     packages=['wheezy', 'wheezy.captcha'],
     package_dir={'': 'src'},
     namespace_packages=['wheezy'],
-
     zip_safe=False,
     install_requires=install_requires,
     extras_require={
@@ -75,14 +85,8 @@ setup(
         ],
         'Pillow': [
             'Pillow'
-        ],
-        'dev': [
-            'pytest',
-            'pytest-pep8',
-            'pytest-cov'
-        ],
+        ]
     },
-
     platforms='any',
     **extra
 )
