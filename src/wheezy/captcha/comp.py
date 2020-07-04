@@ -3,20 +3,20 @@
 
 import sys
 
-
 PY3 = sys.version_info[0] >= 3
 
 
 if PY3:  # pragma: nocover
     from string import ascii_uppercase
+
     xrange = range
 else:  # pragma: nocover
     from string import uppercase as ascii_uppercase  # noqa: F401
+
     xrange = xrange
 
 try:  # pragma: nocover
-    from PIL import Image
-    from PIL import ImageFilter
+    from PIL import Image, ImageFilter
     from PIL.ImageColor import getrgb
     from PIL.ImageDraw import Draw
     from PIL.ImageFont import truetype

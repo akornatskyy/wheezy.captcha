@@ -1,30 +1,31 @@
 """
 """
 
-from shared import cache
-from shared import captcha
-from shared import captcha_handler
+from shared import cache, captcha, captcha_handler
 
-from wheezy.http import HTTPResponse
-from wheezy.http import WSGIApplication
-from wheezy.http import accept_method
-from wheezy.http import bootstrap_http_defaults
-from wheezy.http import not_found
+from wheezy.http import (
+    HTTPResponse,
+    WSGIApplication,
+    accept_method,
+    bootstrap_http_defaults,
+    not_found,
+)
 from wheezy.http.middleware import http_cache_middleware_factory
 
 
-@accept_method(('GET', 'POST'))
+@accept_method(("GET", "POST"))
 def welcome(request):
-    message, error = '', ''
-    if request.method == 'POST':
+    message, error = "", ""
+    if request.method == "POST":
         errors = {}
         if not captcha.validate(request, errors, gettext=lambda s: s):
-            error = errors['turing_number'][-1]
+            error = errors["turing_number"][-1]
         else:
-            message = 'Well done!'
+            message = "Well done!"
     challenge_code = captcha.get_challenge_code(request)
     response = HTTPResponse()
-    response.write("""
+    response.write(
+        """
 <html><head><style>
 span {color: green;}
 span.error {color:red;}
@@ -58,38 +59,42 @@ window.onload=function()
 }
 </script>
 </body></html>
-    """ % (message, challenge_code, challenge_code, error))
+    """
+        % (message, challenge_code, challenge_code, error)
+    )
     return response
 
 
 def router_middleware(request, following):
     path = request.path
-    if path == '/':
+    if path == "/":
         response = welcome(request)
-    elif path.startswith('/captcha.jpg'):
+    elif path.startswith("/captcha.jpg"):
         response = captcha_handler(request)
     else:
         response = not_found()
     return response
 
 
-options = {
-    'http_cache': cache
-}
-main = WSGIApplication([
-    bootstrap_http_defaults,
-    http_cache_middleware_factory,
-    lambda ignore: router_middleware
-], options)
+options = {"http_cache": cache}
+main = WSGIApplication(
+    [
+        bootstrap_http_defaults,
+        http_cache_middleware_factory,
+        lambda ignore: router_middleware,
+    ],
+    options,
+)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from wsgiref.handlers import BaseHandler
     from wsgiref.simple_server import make_server
+
     try:
-        print('Visit http://localhost:8080/')
-        BaseHandler.http_version = '1.1'
-        make_server('', 8080, main).serve_forever()
+        print("Visit http://localhost:8080/")
+        BaseHandler.http_version = "1.1"
+        make_server("", 8080, main).serve_forever()
     except KeyboardInterrupt:
         pass
-    print('\nThanks!')
+    print("\nThanks!")

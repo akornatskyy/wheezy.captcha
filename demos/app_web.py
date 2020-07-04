@@ -1,15 +1,12 @@
 """
 """
 
-from shared import cache
-from shared import captcha
-from shared import captcha_handler
+from shared import cache, captcha, captcha_handler
 
 from wheezy.captcha.mixin import CaptchaMixin
 from wheezy.core.collections import attrdict
 from wheezy.core.descriptors import attribute
-from wheezy.html.ext.template import WhitespaceExtension
-from wheezy.html.ext.template import WidgetExtension
+from wheezy.html.ext.template import WhitespaceExtension, WidgetExtension
 from wheezy.http import WSGIApplication
 from wheezy.http.middleware import http_cache_middleware_factory
 from wheezy.routing import url
@@ -17,8 +14,10 @@ from wheezy.template import Engine
 from wheezy.template.ext.core import CoreExtension
 from wheezy.template.loader import DictLoader
 from wheezy.web.handlers.base import BaseHandler
-from wheezy.web.middleware import bootstrap_defaults
-from wheezy.web.middleware import path_routing_middleware_factory
+from wheezy.web.middleware import (
+    bootstrap_defaults,
+    path_routing_middleware_factory,
+)
 from wheezy.web.templates import WheezyTemplate
 
 
@@ -28,25 +27,22 @@ class WelcomeHandler(BaseHandler, CaptchaMixin):
 
     @attribute
     def model(self):
-        return attrdict({
-            'message': '',
-            'turing_number': ''
-        })
+        return attrdict({"message": "", "turing_number": ""})
 
-    def get(self, message=''):
+    def get(self, message=""):
         self.model.message = message
-        return self.render_response('welcome',
-                                    captcha=self.captcha_widget,
-                                    m=self.model)
+        return self.render_response(
+            "welcome", captcha=self.captcha_widget, m=self.model
+        )
 
     def post(self):
         if not self.validate_captcha():
             return self.get()
-        return self.get('Well done!')
+        return self.get("Well done!")
 
 
 templates = {
-    'welcome': """@require(m, captcha, path_for, errors)
+    "welcome": """@require(m, captcha, path_for, errors)
 <html><head><style>
 span {color: green;}
 span.error {color:red;}
@@ -83,35 +79,33 @@ window.onload=function()
 
 engine = Engine(
     loader=DictLoader(templates),
-    extensions=[
-        CoreExtension(),
-        WidgetExtension(),
-        WhitespaceExtension()
-    ])
+    extensions=[CoreExtension(), WidgetExtension(), WhitespaceExtension()],
+)
 
 all_urls = [
-    ('', WelcomeHandler),
-    url('captcha.jpg', captcha_handler, name='captcha')
+    ("", WelcomeHandler),
+    url("captcha.jpg", captcha_handler, name="captcha"),
 ]
 
-options = {
-    'http_cache': cache,
-    'render_template': WheezyTemplate(engine)
-}
-main = WSGIApplication([
-    bootstrap_defaults(url_mapping=all_urls),
-    http_cache_middleware_factory,
-    path_routing_middleware_factory
-], options)
+options = {"http_cache": cache, "render_template": WheezyTemplate(engine)}
+main = WSGIApplication(
+    [
+        bootstrap_defaults(url_mapping=all_urls),
+        http_cache_middleware_factory,
+        path_routing_middleware_factory,
+    ],
+    options,
+)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from wsgiref.handlers import BaseHandler
     from wsgiref.simple_server import make_server
+
     try:
-        print('Visit http://localhost:8080/')
-        BaseHandler.http_version = '1.1'
-        make_server('', 8080, main).serve_forever()
+        print("Visit http://localhost:8080/")
+        BaseHandler.http_version = "1.1"
+        make_server("", 8080, main).serve_forever()
     except KeyboardInterrupt:
         pass
-    print('\nThanks!')
+    print("\nThanks!")

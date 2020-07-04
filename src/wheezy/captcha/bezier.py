@@ -1,4 +1,3 @@
-
 """
 """
 
@@ -36,8 +35,9 @@ def make_bezier(n):
         for t in tsequence:
             tpowers = (t ** i for i in range(n))
             upowers = ((1 - t) ** i for i in range(n - 1, -1, -1))
-            coefs = [c * a * b for c, a, b in zip(combinations,
-                                                  tpowers, upowers)]
+            coefs = [
+                c * a * b for c, a, b in zip(combinations, tpowers, upowers)
+            ]
             result.append(coefs)
         beziers[n] = result
         return result
