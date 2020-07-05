@@ -28,7 +28,7 @@ pytest==4.6.11            # via -r requirements/dev.in, pytest-cov
 scandir==1.10.0           # via pathlib2
 six==1.15.0               # via mock, more-itertools, packaging, pathlib2, pip-tools, pytest
 wcwidth==0.2.5            # via pytest
-wheezy.caching==0.1.129   # via wheezy.web
+wheezy.caching==0.1.131   # via wheezy.web
 wheezy.core==0.1.140      # via wheezy.http, wheezy.web
 wheezy.html==0.1.147      # via wheezy.web
 wheezy.http==0.1.344      # via wheezy.web
