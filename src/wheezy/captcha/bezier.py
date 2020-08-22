@@ -7,8 +7,7 @@ beziers = {}
 
 
 def pascal_row(n):
-    """ Returns n-th row of Pascal's triangle
-    """
+    """Returns n-th row of Pascal's triangle"""
     result = [1]
     x, numerator = 1, n
     for denominator in range(1, n // 2 + 1):
@@ -24,8 +23,8 @@ def pascal_row(n):
 
 
 def make_bezier(n):
-    """ Bezier curves:
-        http://en.wikipedia.org/wiki/B%C3%A9zier_curve#Generalization
+    """Bezier curves:
+    http://en.wikipedia.org/wiki/B%C3%A9zier_curve#Generalization
     """
     try:
         return beziers[n]
