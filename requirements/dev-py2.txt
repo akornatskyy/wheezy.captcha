@@ -5,15 +5,15 @@
 #    pip-compile --output-file=requirements/dev-py2.txt requirements/dev.in
 #
 atomicwrites==1.4.0       # via pytest
-attrs==20.1.0             # via pytest
+attrs==20.2.0             # via pytest
 backports.functools-lru-cache==1.6.1  # via wcwidth
 click==7.1.2              # via pip-tools
 colorama==0.4.3           # via pytest
 configparser==4.0.2       # via importlib-metadata
 contextlib2==0.6.0.post1  # via importlib-metadata
-coverage==5.2.1           # via pytest-cov
+coverage==5.3             # via pytest-cov
 funcsigs==1.0.2           # via mock, pytest
-importlib-metadata==1.7.0  # via pluggy, pytest
+importlib-metadata==2.0.0  # via pluggy, pytest
 mock==3.0.5               # via -r requirements/dev.in
 more-itertools==5.0.0     # via pytest
 packaging==20.4           # via pytest
@@ -28,15 +28,15 @@ pytest==4.6.11            # via -r requirements/dev.in, pytest-cov
 scandir==1.10.0           # via pathlib2
 six==1.15.0               # via mock, more-itertools, packaging, pathlib2, pip-tools, pytest
 wcwidth==0.2.5            # via pytest
-wheezy.caching==0.1.131   # via wheezy.web
-wheezy.core==0.1.153      # via wheezy.http, wheezy.web
-wheezy.html==0.1.161      # via wheezy.web
-wheezy.http==0.1.358      # via wheezy.web
-wheezy.routing==0.1.169   # via wheezy.web
-wheezy.security==0.1.77   # via wheezy.web
-wheezy.template==0.1.193  # via -r requirements/dev.in
-wheezy.validation==0.1.147  # via wheezy.web
-wheezy.web==0.1.501       # via -r requirements/dev.in
+wheezy.caching==0.1.133   # via wheezy.web
+wheezy.core==0.1.156      # via wheezy.http, wheezy.web
+wheezy.html==0.1.163      # via wheezy.web
+wheezy.http==0.1.360      # via wheezy.web
+wheezy.routing==0.1.171   # via wheezy.web
+wheezy.security==0.1.79   # via wheezy.web
+wheezy.template==0.1.195  # via -r requirements/dev.in
+wheezy.validation==0.1.150  # via wheezy.web
+wheezy.web==0.1.504       # via -r requirements/dev.in
 zipp==1.2.0               # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:

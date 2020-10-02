@@ -1,8 +1,6 @@
 """
 """
 
-from shared import cache, captcha, captcha_handler
-
 from wheezy.http import (
     HTTPResponse,
     WSGIApplication,
@@ -11,6 +9,8 @@ from wheezy.http import (
     not_found,
 )
 from wheezy.http.middleware import http_cache_middleware_factory
+
+from shared import cache, captcha, captcha_handler
 
 
 @accept_method(("GET", "POST"))
