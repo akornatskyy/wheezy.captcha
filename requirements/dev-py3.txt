@@ -5,31 +5,32 @@
 #    pip-compile --output-file=requirements/dev-py3.txt requirements/dev.in
 #
 atomicwrites==1.4.0       # via pytest
-attrs==20.2.0             # via pytest
+attrs==20.3.0             # via pytest
 click==7.1.2              # via pip-tools
-colorama==0.4.3           # via pytest
+colorama==0.4.4           # via pytest
 coverage==5.3             # via pytest-cov
-iniconfig==1.0.1          # via pytest
+iniconfig==1.1.1          # via pytest
 mock==4.0.2               # via -r requirements/dev.in
 packaging==20.4           # via pytest
-pillow==7.2.0             # via -r requirements/dev.in
+pillow==8.0.0; platform_system == 'Windows' and implementation_name == 'pypy'             # via -r requirements/dev.in
+pillow==8.0.1; platform_system != 'Windows' or implementation_name != 'pypy'             # via -r requirements/dev.in
 pip-tools==5.3.1          # via -r requirements/dev.in
 pluggy==0.13.1            # via pytest
 py==1.9.0                 # via pytest
 pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.1        # via -r requirements/dev.in
-pytest==6.1.1             # via -r requirements/dev.in, pytest-cov
+pytest==6.1.2             # via -r requirements/dev.in, pytest-cov
 six==1.15.0               # via packaging, pip-tools
-toml==0.10.1              # via pytest
-wheezy.caching==0.1.133   # via wheezy.web
-wheezy.core==0.1.156      # via wheezy.http, wheezy.web
-wheezy.html==0.1.163      # via wheezy.web
-wheezy.http==0.1.360      # via wheezy.web
-wheezy.routing==0.1.171   # via wheezy.web
-wheezy.security==0.1.79   # via wheezy.web
-wheezy.template==0.1.195  # via -r requirements/dev.in
-wheezy.validation==0.1.150  # via wheezy.web
-wheezy.web==0.1.504       # via -r requirements/dev.in
+toml==0.10.2              # via pytest
+wheezy.caching==2.0.0     # via wheezy.web
+wheezy.core==2.0.0        # via wheezy.http, wheezy.web
+wheezy.html==2.0.0        # via wheezy.web
+wheezy.http==2.0.0        # via wheezy.web
+wheezy.routing==2.0.0     # via wheezy.web
+wheezy.security==2.0.0    # via wheezy.web
+wheezy.template==3.0.1    # via -r requirements/dev.in
+wheezy.validation==2.0.0  # via wheezy.web
+wheezy.web==2.0.0         # via -r requirements/dev.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
