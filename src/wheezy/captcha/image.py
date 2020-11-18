@@ -3,14 +3,7 @@
 
 import random
 
-from wheezy.captcha.comp import (
-    Draw,
-    Image,
-    ImageFilter,
-    getrgb,
-    truetype,
-    xrange,
-)
+from wheezy.captcha.comp import Draw, Image, ImageFilter, getrgb, truetype
 
 
 def captcha(drawings, width=200, height=75):
@@ -87,7 +80,7 @@ def noise(number=50, color="#EEEECC", level=2):
         dy = height / 10
         height = height - dy
         draw = Draw(image)
-        for _ in xrange(number):
+        for _ in range(number):
             x = int(random.uniform(dx, width))
             y = int(random.uniform(dy, height))
             draw.line(((x, y), (x + level, y)), fill=color(), width=level)
