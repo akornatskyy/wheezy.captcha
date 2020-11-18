@@ -29,8 +29,8 @@ Resources:
 ## Install
 
 [wheezy.captcha](https://pypi.org/project/wheezy.captcha/) requires
-[python](http://www.python.org) version 2.4 to 2.7 or 3.2+. It is
-independent of operating system. You can install it from
+[python](http://www.python.org) version 3.6+. It is independent of operating
+system. You can install it from
 [pypi](https://pypi.org/project/wheezy.captcha/) site (you need specify
 extra requirements per imaging library of your choice):
 

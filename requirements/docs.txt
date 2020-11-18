@@ -31,8 +31,8 @@ sphinxcontrib-jsmath==1.0.1  # via sphinx
 sphinxcontrib-qthelp==1.0.3  # via sphinx
 sphinxcontrib-serializinghtml==1.1.4  # via sphinx
 urllib3==1.26.2           # via requests
-wheezy.core==2.0.0        # via wheezy.http
-wheezy.http==2.0.0        # via -r requirements/docs.in
+wheezy.core==3.0.0        # via wheezy.http
+wheezy.http==3.0.0        # via -r requirements/docs.in
 wheezy.template==3.0.1    # via -r requirements/docs.in
 
 # The following packages are considered to be unsafe in a requirements file:

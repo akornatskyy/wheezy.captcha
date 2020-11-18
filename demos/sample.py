@@ -1,7 +1,8 @@
 """
 """
 
-from wheezy.captcha.comp import ascii_uppercase
+from string import ascii_uppercase
+
 from wheezy.captcha.image import (
     background,
     captcha,
