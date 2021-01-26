@@ -2,7 +2,6 @@ Pillow
 wheezy.template
 wheezy.web
 
-mock
 pytest
 pytest-cov
 pip-tools
