@@ -26,7 +26,7 @@ markupsafe==1.1.1
     # via jinja2
 packaging==20.9
     # via sphinx
-pillow==8.1.2
+pillow==8.2.0
     # via -r requirements/docs.in
 pygments==2.8.1
     # via sphinx
@@ -40,7 +40,7 @@ snowballstemmer==2.1.0
     # via sphinx
 sphinx-rtd-theme==0.5.1
     # via -r requirements/docs.in
-sphinx==3.5.2
+sphinx==3.5.3
     # via sphinx-rtd-theme
 sphinxcontrib-applehelp==1.0.2
     # via sphinx
@@ -54,7 +54,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.4
     # via sphinx
-urllib3==1.26.3
+urllib3==1.26.4
     # via requests
 wheezy.core==3.0.1
     # via wheezy.http

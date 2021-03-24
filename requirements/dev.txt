@@ -18,9 +18,11 @@ iniconfig==1.1.1
     # via pytest
 packaging==20.9
     # via pytest
-pillow==8.1.2
+pep517==0.10.0
+    # via pip-tools
+pillow==8.2.0
     # via -r requirements/dev.in
-pip-tools==5.5.0
+pip-tools==6.0.1
     # via -r requirements/dev.in
 pluggy==0.13.1
     # via pytest
@@ -35,7 +37,9 @@ pytest==6.2.2
     #   -r requirements/dev.in
     #   pytest-cov
 toml==0.10.2
-    # via pytest
+    # via
+    #   pep517
+    #   pytest
 wheezy.caching==3.0.1
     # via wheezy.web
 wheezy.core==3.0.1
