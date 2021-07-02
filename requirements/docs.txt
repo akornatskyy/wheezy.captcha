@@ -12,8 +12,6 @@ certifi==2021.5.30
     # via requests
 chardet==4.0.0
     # via requests
-colorama==0.4.4
-    # via sphinx
 docutils==0.16
     # via
     #   sphinx
@@ -28,7 +26,7 @@ markupsafe==2.0.1
     # via jinja2
 packaging==20.9
     # via sphinx
-pillow==8.2.0
+pillow==8.3.0
     # via -r requirements/docs.in
 pygments==2.9.0
     # via sphinx
