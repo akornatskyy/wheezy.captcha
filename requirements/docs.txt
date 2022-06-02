@@ -12,8 +12,6 @@ certifi==2021.10.8
     # via requests
 charset-normalizer==2.0.12
     # via requests
-colorama==0.4.4
-    # via sphinx
 docutils==0.17.1
     # via
     #   sphinx
@@ -28,8 +26,8 @@ markupsafe==2.1.1
     # via jinja2
 packaging==21.3
     # via sphinx
-pillow==9.1.0
-    # via -r requirements/docs.in
+pillow==9.1.1
+    # via -r docs.in
 pygments==2.11.2
     # via sphinx
 pyparsing==3.0.8
@@ -43,7 +41,7 @@ snowballstemmer==2.2.0
 sphinx==4.5.0
     # via sphinx-rtd-theme
 sphinx-rtd-theme==1.0.0
-    # via -r requirements/docs.in
+    # via -r docs.in
 sphinxcontrib-applehelp==1.0.2
     # via sphinx
 sphinxcontrib-devhelp==1.0.2
@@ -61,6 +59,6 @@ urllib3==1.26.9
 wheezy-core==3.0.1
     # via wheezy-http
 wheezy-http==3.0.1
-    # via -r requirements/docs.in
+    # via -r docs.in
 wheezy-template==3.1.0
-    # via -r requirements/docs.in
+    # via -r docs.in
