@@ -110,10 +110,11 @@ def text(
         char_images = []
         for c in text:
             font = random.choice(fonts)
-            c_width, c_height = draw.textsize(c, font=font)
+            left, top, right, bottom = draw.textbbox((0, 0), c, font=font)
+            c_width, c_height = right - left, bottom - top
             char_image = Image.new("RGB", (c_width, c_height), (0, 0, 0))
             char_draw = Draw(char_image)
-            char_draw.text((0, 0), c, font=font, fill=color())
+            char_draw.text((0, -top), c, font=font, fill=color())
             char_image = char_image.crop(char_image.getbbox())
             for drawing in drawings:
                 char_image = drawing(char_image)
