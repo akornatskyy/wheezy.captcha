@@ -23,7 +23,6 @@ from shared import cache, captcha, captcha_handler
 
 
 class WelcomeHandler(BaseHandler, CaptchaMixin):
-
     captcha_context = captcha
 
     @attribute
