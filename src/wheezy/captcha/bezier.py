@@ -1,7 +1,6 @@
 """
 """
 
-
 tsequence = tuple([t / 20.0 for t in range(21)])
 beziers = {}
 
