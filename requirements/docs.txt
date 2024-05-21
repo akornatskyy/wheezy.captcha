@@ -32,7 +32,7 @@ pillow==10.3.0
     # via -r requirements/docs.in
 pygments==2.18.0
     # via sphinx
-requests==2.31.0
+requests==2.32.3
     # via sphinx
 snowballstemmer==2.2.0
     # via sphinx
