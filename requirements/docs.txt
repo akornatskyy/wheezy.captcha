@@ -8,7 +8,7 @@ alabaster==0.7.16
     # via sphinx
 babel==2.15.0
     # via sphinx
-certifi==2024.6.2
+certifi==2024.7.4
     # via requests
 charset-normalizer==3.3.2
     # via requests
@@ -28,7 +28,7 @@ markupsafe==2.1.5
     # via jinja2
 packaging==24.1
     # via sphinx
-pillow==10.3.0
+pillow==10.4.0
     # via -r requirements/docs.in
 pygments==2.18.0
     # via sphinx
@@ -36,7 +36,7 @@ requests==2.32.3
     # via sphinx
 snowballstemmer==2.2.0
     # via sphinx
-sphinx==7.3.7
+sphinx==7.4.6
     # via
     #   sphinx-rtd-theme
     #   sphinxcontrib-jquery
@@ -59,7 +59,7 @@ sphinxcontrib-serializinghtml==1.1.10
 urllib3==2.2.2
     # via requests
 wheezy.core==3.2.0
-    # via wheezy-http
+    # via wheezy.http
 wheezy.http==3.2.0
     # via -r requirements/docs.in
 wheezy.template==3.2.2

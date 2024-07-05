@@ -13,7 +13,7 @@ colorama==0.4.6
     #   build
     #   click
     #   pytest
-coverage==7.5.4
+coverage==7.6.0
     # via pytest-cov
 iniconfig==2.0.0
     # via pytest
@@ -21,7 +21,7 @@ packaging==24.1
     # via
     #   build
     #   pytest
-pillow==10.3.0
+pillow==10.4.0
     # via -r requirements/dev.in
 pip-tools==7.4.1
     # via -r requirements/dev.in
@@ -40,23 +40,23 @@ pytest-cov==5.0.0
 wheel==0.43.0
     # via pip-tools
 wheezy.caching==3.2.0
-    # via wheezy-web
+    # via wheezy.web
 wheezy.core==3.2.0
     # via
-    #   wheezy-http
-    #   wheezy-web
+    #   wheezy.http
+    #   wheezy.web
 wheezy.html==3.2.0
-    # via wheezy-web
+    # via wheezy.web
 wheezy.http==3.2.0
-    # via wheezy-web
+    # via wheezy.web
 wheezy.routing==3.2.0
-    # via wheezy-web
+    # via wheezy.web
 wheezy.security==3.2.0
-    # via wheezy-web
+    # via wheezy.web
 wheezy.template==3.2.2
     # via -r requirements/dev.in
 wheezy.validation==3.2.0
-    # via wheezy-web
+    # via wheezy.web
 wheezy.web==3.2.0
     # via -r requirements/dev.in
 
