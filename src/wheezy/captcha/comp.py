@@ -12,3 +12,16 @@ except ImportError:  # pragma: nocover
     from ImageColor import getrgb  # noqa
     from ImageDraw import Draw  # noqa
     from ImageFont import truetype  # noqa
+
+
+# PIL, Pillow < 10
+if hasattr(Draw(Image.new("RGB", (0, 0))), "textsize"):
+
+    def textsize(draw, c, font):
+        return draw.textsize(c, font=font)
+
+else:
+
+    def textsize(draw, text, font):
+        _, _, w, h = draw.textbbox((0, 0), text, font)
+        return w, h

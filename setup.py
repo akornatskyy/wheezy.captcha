@@ -77,7 +77,7 @@ setup(
     namespace_packages=["wheezy"],
     zip_safe=False,
     install_requires=install_requires,
-    extras_require={"PIL": ["PIL"], "Pillow": ["Pillow"]},
+    extras_require={"PIL": ["PIL"], "Pillow": ["Pillow>=10"]},
     platforms="any",
     **extra
 )
