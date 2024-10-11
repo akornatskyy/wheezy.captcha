@@ -47,7 +47,7 @@ wheezy.core==3.2.0
     #   wheezy.web
 wheezy.html==3.2.0
     # via wheezy.web
-wheezy.http==3.2.0
+wheezy.http==3.2.1
     # via wheezy.web
 wheezy.routing==3.2.0
     # via wheezy.web
