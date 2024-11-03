@@ -29,7 +29,7 @@ Resources:
 ## Install
 
 [wheezy.captcha](https://pypi.org/project/wheezy.captcha/) requires
-[python](http://www.python.org) version 3.8+. It is independent of operating
+[python](http://www.python.org) version 3.9+. It is independent of operating
 system. You can install it from
 [pypi](https://pypi.org/project/wheezy.captcha/) site (you need specify
 extra requirements per imaging library of your choice):
