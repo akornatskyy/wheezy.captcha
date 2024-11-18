@@ -13,7 +13,7 @@ colorama==0.4.6
     #   build
     #   click
     #   pytest
-coverage==7.6.4
+coverage==7.6.9
     # via pytest-cov
 iniconfig==2.0.0
     # via pytest
@@ -31,13 +31,13 @@ pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
-pytest==8.3.3
+pytest==8.3.4
     # via
     #   -r requirements/dev.in
     #   pytest-cov
 pytest-cov==6.0.0
     # via -r requirements/dev.in
-wheel==0.45.0
+wheel==0.45.1
     # via pip-tools
 wheezy.caching==3.2.0
     # via wheezy.web
@@ -53,7 +53,7 @@ wheezy.routing==3.2.0
     # via wheezy.web
 wheezy.security==3.2.0
     # via wheezy.web
-wheezy.template==3.2.2
+wheezy.template==3.2.3
     # via -r requirements/dev.in
 wheezy.validation==3.2.0
     # via wheezy.web
