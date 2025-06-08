@@ -32,7 +32,7 @@ pillow==11.2.1
     # via -r requirements/docs.in
 pygments==2.19.1
     # via sphinx
-requests==2.32.3
+requests==2.32.4
     # via sphinx
 roman-numerals-py==3.1.0
     # via sphinx
