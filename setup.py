@@ -42,7 +42,7 @@ except ImportError:
 setup(
     name="wheezy.captcha",
     version=VERSION,
-    python_requires=">=3.9",
+    python_requires=">=3.10",
     description="A lightweight captcha library",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -57,7 +57,6 @@ setup(
         "Natural Language :: English",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
