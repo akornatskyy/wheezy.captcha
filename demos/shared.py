@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.caching.memory import MemoryCache
 
 from wheezy.captcha.http import CaptchaContext

@@ -4,26 +4,27 @@
 #
 #    pip-compile --output-file=requirements/dev.txt --strip-extras requirements/dev.in
 #
-build==1.3.0
+build==1.4.0
     # via pip-tools
-click==8.3.0
+click==8.3.1
     # via pip-tools
 colorama==0.4.6
     # via
     #   build
     #   click
     #   pytest
-coverage==7.11.3
+coverage==7.13.4
     # via pytest-cov
 iniconfig==2.3.0
     # via pytest
-packaging==25.0
+packaging==26.0
     # via
     #   build
     #   pytest
-pillow==12.0.0
+    #   wheel
+pillow==12.1.1
     # via -r requirements/dev.in
-pip-tools==7.5.2
+pip-tools==7.5.3
     # via -r requirements/dev.in
 pluggy==1.6.0
     # via
@@ -35,33 +36,33 @@ pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
-pytest==9.0.1
+pytest==9.0.2
     # via
     #   -r requirements/dev.in
     #   pytest-cov
 pytest-cov==7.0.0
     # via -r requirements/dev.in
-wheel==0.45.1
+wheel==0.46.3
     # via pip-tools
-wheezy.caching==3.2.0
+wheezy.caching==3.2.1
     # via wheezy.web
-wheezy.core==3.2.0
+wheezy.core==3.2.3
     # via
     #   wheezy.http
     #   wheezy.web
-wheezy.html==3.2.0
+wheezy.html==3.2.1
     # via wheezy.web
-wheezy.http==3.2.1
+wheezy.http==3.2.3
     # via wheezy.web
-wheezy.routing==3.2.0
+wheezy.routing==3.2.1
     # via wheezy.web
-wheezy.security==3.2.0
+wheezy.security==3.2.2
     # via wheezy.web
-wheezy.template==3.2.3
+wheezy.template==3.2.5
     # via -r requirements/dev.in
-wheezy.validation==3.2.0
+wheezy.validation==3.2.1
     # via wheezy.web
-wheezy.web==3.2.0
+wheezy.web==3.2.1
     # via -r requirements/dev.in
 
 # The following packages are considered to be unsafe in a requirements file:

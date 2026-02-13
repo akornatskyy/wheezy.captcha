@@ -1,6 +1,3 @@
-""" ``comp`` module.
-"""
-
 try:  # pragma: nocover
     from PIL import Image, ImageFilter
     from PIL.ImageColor import getrgb
@@ -12,7 +9,6 @@ except ImportError:  # pragma: nocover
     from ImageColor import getrgb  # noqa
     from ImageDraw import Draw  # noqa
     from ImageFont import truetype  # noqa
-
 
 # PIL, Pillow < 10
 if hasattr(Draw(Image.new("RGB", (0, 0))), "textsize"):

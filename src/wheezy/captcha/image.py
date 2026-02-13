@@ -1,6 +1,3 @@
-"""
-"""
-
 import random
 
 from wheezy.captcha.comp import (

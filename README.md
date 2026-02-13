@@ -1,6 +1,6 @@
 # wheezy.captcha
 
-[![Build Status](https://travis-ci.org/akornatskyy/wheezy.captcha.svg?branch=master)](https://travis-ci.org/akornatskyy/wheezy.captcha)
+[![tests](https://github.com/akornatskyy/wheezy.captcha/actions/workflows/tests.yml/badge.svg)](https://github.com/akornatskyy/wheezy.captcha/actions/workflows/tests.yml)
 [![Coverage Status](https://coveralls.io/repos/github/akornatskyy/wheezy.captcha/badge.svg?branch=master)](https://coveralls.io/github/akornatskyy/wheezy.captcha?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/wheezycaptcha/badge/?version=latest)](https://wheezycaptcha.readthedocs.io/en/latest/?badge=latest)
 [![pypi version](https://badge.fury.io/py/wheezy.captcha.svg)](https://badge.fury.io/py/wheezy.captcha)

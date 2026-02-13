@@ -1,6 +1,3 @@
-"""
-"""
-
 import random
 from datetime import timedelta
 from time import time

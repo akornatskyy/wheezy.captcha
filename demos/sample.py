@@ -1,6 +1,3 @@
-"""
-"""
-
 from string import ascii_uppercase
 
 from wheezy.captcha.image import (

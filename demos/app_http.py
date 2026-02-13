@@ -1,6 +1,4 @@
-"""
-"""
-
+from shared import cache, captcha, captcha_handler
 from wheezy.http import (
     HTTPResponse,
     WSGIApplication,
@@ -9,8 +7,6 @@ from wheezy.http import (
     not_found,
 )
 from wheezy.http.middleware import http_cache_middleware_factory
-
-from shared import cache, captcha, captcha_handler
 
 
 @accept_method(("GET", "POST"))
@@ -24,8 +20,7 @@ def welcome(request):
             message = "Well done!"
     challenge_code = captcha.get_challenge_code(request)
     response = HTTPResponse()
-    response.write(
-        """
+    response.write("""
 <html><head><style>
 span {color: green;}
 span.error {color:red;}
@@ -59,9 +54,7 @@ window.onload=function()
 }
 </script>
 </body></html>
-    """
-        % (message, challenge_code, challenge_code, error)
-    )
+    """ % (message, challenge_code, challenge_code, error))
     return response
 
 

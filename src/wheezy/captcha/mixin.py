@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.core.descriptors import attribute
 
 
