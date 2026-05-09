@@ -18,7 +18,7 @@ docutils==0.22.4
     # via
     #   sphinx
     #   sphinx-rtd-theme
-idna==3.13
+idna==3.15
     # via requests
 imagesize==2.0.0
     # via sphinx
@@ -32,7 +32,7 @@ pillow==12.2.0
     # via -r requirements/docs.in
 pygments==2.20.0
     # via sphinx
-requests==2.33.1
+requests==2.34.2
     # via sphinx
 roman-numerals==4.1.0
     # via sphinx
@@ -58,7 +58,7 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-urllib3==2.6.3
+urllib3==2.7.0
     # via requests
 wheezy.core==3.2.3
     # via wheezy.http
