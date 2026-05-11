@@ -12,8 +12,6 @@ certifi==2026.4.22
     # via requests
 charset-normalizer==3.4.7
     # via requests
-colorama==0.4.6
-    # via sphinx
 docutils==0.22.4
     # via
     #   sphinx
@@ -29,7 +27,7 @@ markupsafe==3.0.3
 packaging==26.2
     # via sphinx
 pillow==12.2.0
-    # via -r requirements/docs.in
+    # via -r docs.in
 pygments==2.20.0
     # via sphinx
 requests==2.33.1
@@ -43,7 +41,7 @@ sphinx==9.1.0
     #   sphinx-rtd-theme
     #   sphinxcontrib-jquery
 sphinx-rtd-theme==3.1.0
-    # via -r requirements/docs.in
+    # via -r docs.in
 sphinxcontrib-applehelp==2.0.0
     # via sphinx
 sphinxcontrib-devhelp==2.0.0
@@ -58,11 +56,11 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-urllib3==2.6.3
+urllib3==2.7.0
     # via requests
-wheezy.core==3.2.3
-    # via wheezy.http
-wheezy.http==3.2.4
-    # via -r requirements/docs.in
-wheezy.template==3.2.5
-    # via -r requirements/docs.in
+wheezy-core==3.2.3
+    # via wheezy-http
+wheezy-http==3.2.4
+    # via -r docs.in
+wheezy-template==3.2.5
+    # via -r docs.in
