@@ -28,7 +28,7 @@ markupsafe==3.0.3
     # via jinja2
 packaging==26.2
     # via sphinx
-pillow==12.2.0
+pillow==12.3.0
     # via -r requirements/docs.in
 pygments==2.20.0
     # via sphinx
